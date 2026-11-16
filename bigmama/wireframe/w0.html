@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Wireframe · BIG MAMA · W 1</title>
+<style>
+/* Wireframe SocialFOX: scheletro grigio, NON grafica. Una colonna sul telefono, due sul computer. */
+:root{--bg:#fff;--ink:#1f2937;--soft:#4b5563;--line:#d1d5db;--box:#e5e7eb;--band:#f3f4f6;--tag:#1d4ed8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.info{background:#111827;color:#fff;font-size:13px;padding:10px 16px;text-align:center}
+.info b{color:#93c5fd}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+section{padding:36px 0;border-bottom:1px dashed var(--line)}
+section.band{background:var(--band)}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--tag);text-transform:uppercase;margin-bottom:12px}
+h1{font-size:clamp(36px,7vw,64px);line-height:1.05;margin:0 0 12px;font-weight:800}
+h2{font-size:clamp(26px,4vw,38px);line-height:1.1;margin:0 0 12px;font-weight:800}
+h3{font-size:20px;margin:8px 0 4px}
+p{margin:0 0 12px;color:var(--soft);max-width:60ch}
+.ph{background:var(--box);border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--soft);font-size:14px;padding:16px;min-height:220px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 6px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;border-radius:999px;padding:14px 22px;border:2px solid var(--ink);color:var(--ink);background:#fff}
+.btn.main{background:var(--ink);color:#fff}
+.note{font-size:12px;color:#6b7280}
+.split{display:grid;gap:24px;grid-template-columns:1fr}
+.grid{display:grid;gap:16px;grid-template-columns:1fr}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.cans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cans .ph{min-height:120px;font-size:12px}
+.faq .card{font-weight:600}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px}
+html{scroll-behavior:smooth}
+header{position:sticky;top:0;background:#fff;z-index:4;border-bottom:1px solid var(--line)}
+header .wrap{flex-wrap:wrap}
+header nav{font-size:14px;display:flex;gap:18px;order:3;width:100%}
+header nav a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;padding:6px 0}
+section{scroll-margin-top:110px}
+.logo{background:var(--box);border-radius:8px;padding:10px 16px;font-size:12px;color:var(--soft)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:2px solid var(--ink);padding:8px 12px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr;gap:8px;z-index:5}
+.bar .btn{text-align:center;padding:12px 8px}
+.bar small{grid-column:1/-1;font-size:10px;font-weight:700;color:var(--tag);text-transform:uppercase;letter-spacing:.06em}
+footer{padding:28px 0 120px;font-size:13px;color:var(--soft);background:var(--box)}
+@media (min-width:860px){
+  .split{grid-template-columns:1.1fr 1fr;align-items:center}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  header nav{order:0;width:auto}
+  section{scroll-margin-top:70px}
+  .bar{display:none}
+  footer{padding-bottom:28px}
+  .ph.tall{min-height:420px}
+  .split > .ph.tall{order:2} /* hero: testo a sinistra, foto a destra sul computer (Giovanni 09/11) */
+}
+</style>
+</head>
+<body>
+<div class="info">WIREFRAME <b>W 1</b> · BIG MAMA · 09/11/2026 · grigio = scheletro della pagina, <b>non</b> è la grafica</div>
+
+<header><div class="wrap">
+  <div class="logo">LOGO 2026</div>
+  <nav aria-label="Menu della pagina"><a href="#menu">Menù</a><a href="#chi-siamo">Chi siamo</a><a href="#dove-siamo">Dove siamo</a></nav>
+  <a class="btn main" href="#">Ordina su WhatsApp</a>
+</div></header>
+
+<section><div class="wrap split">
+  <div>
+    <span class="tag">1 · Hero — azione: Ordina su WhatsApp</span>
+    <h1>Zitto e mangia!</h1>
+    <p>Burger, pizze e crocchè di Nonna Lina a Feletto Umberto.</p>
+    <strong>4,6 su 5 · 341 recensioni Google</strong>
+    <div class="btns"><a class="btn main" href="#">Ordina su WhatsApp</a><a class="btn" href="#">Prenota un tavolo</a></div>
+    <div class="note">WhatsApp apre un messaggio già scritto: «Ciao Big Mama! Vorrei ordinare…» · Prenota = telefono 0432 465191</div>
+  </div>
+  <div class="ph tall">FOTO o VIDEO vero di un burger<br>[DA DECIDERE: foto o video]</div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <span class="tag">2 · Novità — una card sola, la cambia SocialFOX</span>
+  <div class="card split">
+    <div class="ph" style="min-height:160px">FOTO della novità</div>
+    <div><div class="note">NOVITÀ · fino al [DATA]</div><h3>[DA DECIDERE: Gift card di Natale / Cena aziendale / Crocchè d'oro]</h3><a class="btn" href="#">Scrivici su WhatsApp</a></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="tag">3 · Problema → soluzione</span>
+  <h2>Hai fame o vuoi fare filosofia?</h2>
+  <p>Siete in tanti con gusti diversi? Burger, pizze, veggie e insalatone: da Big Mama c'è posto per tutti.</p>
+  <a class="btn" href="#">Prenota un tavolo</a>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <span class="tag">4 · Come funziona — 3 modi</span>
+  <div class="grid three">
+    <div class="card"><h3>Mangi da noi</h3><a href="#">Prenota 0432 465191</a></div>
+    <div class="card"><h3>Ordini e ritiri</h3><a href="#">Scrivi su WhatsApp</a></div>
+    <div class="card"><h3>Consegna a casa</h3><a href="#">Scrivi su WhatsApp</a></div>
+  </div>
+  <p class="note" style="margin-top:12px">Lun–sab 12–14:30 e 18–22:30 · domenica chiuso</p>
+</div></section>
+
+<section id="menu"><div class="wrap">
+  <span class="tag">5 · Prodotti — 3 punti forti, niente carosello</span>
+  <h2>Intanto assaggia questo</h2>
+  <div class="grid three">
+    <div><div class="ph">FOTO vera · Crocchè di Nonna Lina</div><h3>Crocchè di Nonna Lina</h3><p>La ricetta segreta che nessun altro ha.</p></div>
+    <div><div class="ph">FOTO vera · Big Mama Burger</div><h3>Big Mama Burger</h3><p>Carne lavorata in casa, pane artigianale.</p></div>
+    <div><div class="ph">FOTO vera · dolci</div><h3>Coccoline di nonna</h3><p>I dolci fatti da noi.</p></div>
+  </div>
+  <div class="btns"><a class="btn" href="#">Sfoglia il menù (PDF)</a><a class="btn main" href="#">Ordina su WhatsApp</a></div>
+  <h3 style="margin-top:28px">Zitto e bevi!</h3>
+  <p>Dicci cosa mangi e ti diremo cosa bere.</p>
+  <div class="cans"><div class="ph">Premurosa</div><div class="ph">Onesta</div><div class="ph">Severa</div><div class="ph">Saggia</div></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <span class="tag">6 · Prova sociale — solo recensioni vere</span>
+  <h2>4,6 su 5 · 341 recensioni su Google</h2>
+  <div class="grid three">
+    <div class="card">«Hamburger e pizza di ottima qualità, super consigliato!»<div class="note">[NOME] · Google</div></div>
+    <div class="card">«Hanno anche la loro birra artigianale e dei dolci freschi preparati al momento.»<div class="note">[NOME] · Google</div></div>
+    <div class="card">«La loro creatività culinaria si riflette in panini unici e pizze deliziose.»<div class="note">[NOME] · Google</div></div>
+  </div>
+  <div class="btns"><a class="btn main" href="#">Ordina su WhatsApp</a></div>
+</div></section>
+
+<section id="chi-siamo"><div class="wrap split">
+  <div class="ph">FOTO di Andrea e Marco nel locale</div>
+  <div>
+    <span class="tag">7 · Chi siamo e la nonna</span>
+    <h2>Come la nonna li ha fatti. Solo molto più Big.</h2>
+    <p>Andrea e Marco sono partiti con delivery e asporto. Oggi Big Mama è un locale giovane e colorato, con la crocchè dalla ricetta segreta di nonna Lina.</p>
+    <p class="note">Mascotte piccola: la nonna c'è, ma non comanda.</p>
+    <a class="btn" href="#">Prenota un tavolo</a>
+  </div>
+</div></section>
+
+<section class="band faq"><div class="wrap">
+  <span class="tag">8 · Domande frequenti — si aprono al tocco</span>
+  <div class="grid">
+    <div class="card">C'è qualcosa per chi non mangia carne? +</div>
+    <div class="card">Ho un'allergia, come faccio? +</div>
+    <div class="card">Fate asporto e consegna? +</div>
+    <div class="card">C'è parcheggio? È accessibile? +</div>
+    <div class="card">Siamo un gruppo o un'azienda? +</div>
+  </div>
+</div></section>
+
+<section id="dove-siamo"><div class="wrap split">
+  <div>
+    <span class="tag">9 · Chiusura</span>
+    <h2>Il cibo buono chiama gli amici veri.</h2>
+    <div class="btns"><a class="btn main" href="#">Ordina su WhatsApp</a><a class="btn" href="#">Prenota un tavolo</a></div>
+    <p>Via Enrico Fermi 66, Feletto Umberto (Tavagnacco, UD)<br>Lun–sab 12–14:30 e 18–22:30 · domenica chiuso</p>
+    <p class="note">Instagram · TikTok · Facebook</p>
+  </div>
+  <div class="ph">MAPPA</div>
+</div></section>
+
+<footer><div class="wrap">
+  <span class="tag">10 · Footer</span><br>
+  Food Brand di Delli Santi Andrea &amp; Tikulin Marco S.n.c. · P.IVA 03072300308<br>
+  Privacy · Cookie (iubenda) · Made with love by SocialFOX
+</div></footer>
+
+<div class="bar"><small>Barra fissa · solo sul telefono</small><a class="btn main" href="#">Ordina</a><a class="btn" href="#">Prenota</a></div>
+</body>
+</html>

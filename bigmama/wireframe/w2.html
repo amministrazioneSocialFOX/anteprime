@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Wireframe · BIG MAMA · W 2</title>
+<style>
+/* Wireframe SocialFOX: scheletro grigio, NON grafica. Una colonna sul telefono, due sul computer. */
+:root{--bg:#fff;--ink:#1f2937;--soft:#4b5563;--line:#d1d5db;--box:#e5e7eb;--band:#f3f4f6;--tag:#1d4ed8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.info{background:#111827;color:#fff;font-size:13px;padding:10px 16px;text-align:center}
+.info b{color:#93c5fd}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+section{padding:36px 0;border-bottom:1px dashed var(--line);scroll-margin-top:72px}
+section.band{background:var(--band)}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--tag);text-transform:uppercase;margin-bottom:12px}
+h1{font-size:clamp(36px,7vw,64px);line-height:1.05;margin:0 0 12px;font-weight:800}
+h2{font-size:clamp(26px,4vw,38px);line-height:1.1;margin:0 0 12px;font-weight:800}
+h3{font-size:20px;margin:8px 0 4px}
+p{margin:0 0 12px;color:var(--soft);max-width:60ch}
+.ph{background:var(--box);border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--soft);font-size:14px;padding:16px;min-height:220px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 6px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;border-radius:999px;padding:14px 22px;border:2px solid var(--ink);color:var(--ink);background:#fff}
+.btn.main{background:var(--ink);color:#fff}
+.note{font-size:12px;color:#6b7280}
+.split{display:grid;gap:24px;grid-template-columns:1fr}
+.grid{display:grid;gap:16px;grid-template-columns:1fr}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.cans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cans .ph{min-height:120px;font-size:12px}
+.faq .card{font-weight:600}
+/* Header fisso in alto: menu con ancore vere, Ordina sempre visibile */
+header{position:sticky;top:0;z-index:6;background:#fff;border-bottom:1px solid var(--line)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px}
+header nav{font-size:14px;display:none;gap:18px}
+header nav a,.menu a{color:var(--ink);text-decoration:underline}
+header .btn{padding:10px 16px}
+.right{display:flex;align-items:center;gap:8px}
+.menu{position:relative}
+.menu summary{list-style:none;cursor:pointer;border:2px solid var(--ink);border-radius:10px;padding:6px 12px;font-size:18px;line-height:1}
+.menu summary::-webkit-details-marker{display:none}
+.menu .drop{position:absolute;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;display:grid;min-width:170px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.menu .drop a{padding:10px 12px;font-weight:600}
+.logo{text-decoration:none;background:var(--box);border-radius:8px;padding:10px 16px;font-size:12px;color:var(--soft)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:2px solid var(--ink);padding:8px 12px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr;gap:8px;z-index:5}
+.bar .btn{text-align:center;padding:12px 8px}
+.bar small{grid-column:1/-1;font-size:10px;font-weight:700;color:var(--tag);text-transform:uppercase;letter-spacing:.06em}
+.brief{background:#fff;border:2px dashed var(--ink);border-radius:12px;padding:16px}
+.brief h3{margin-top:16px}
+.brief ul{margin:0;padding-left:20px;color:var(--soft)}
+.brief li{margin:4px 0}
+footer{padding:28px 0 120px;font-size:13px;color:var(--soft);background:var(--box)}
+@media (min-width:860px){
+  .split{grid-template-columns:1.1fr 1fr;align-items:center}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  header nav{display:flex}
+  .menu{display:none}
+  .bar{display:none}
+  footer{padding-bottom:28px}
+  .ph.tall{min-height:420px}
+  .split > .ph.tall{order:2} /* hero: testo a sinistra, foto a destra sul computer (Giovanni 09/11) */
+}
+</style>
+</head>
+<body>
+<div class="info">WIREFRAME <b>W 2</b> · BIG MAMA · 09/11/2026 · grigio = scheletro della pagina, <b>non</b> è la grafica · ⭐ = titolo consigliato, B = alternativa</div>
+
+<header><div class="wrap">
+  <a class="logo" href="#top">LOGO 2026</a>
+  <nav><a href="#menu">Menù</a><a href="#chi-siamo">Chi siamo</a><a href="#dove-siamo">Dove siamo</a></nav>
+  <div class="right">
+    <a class="btn main" href="#">Ordina</a>
+    <details class="menu"><summary aria-label="Apri il menù">☰</summary>
+      <div class="drop"><a href="#menu">Menù</a><a href="#chi-siamo">Chi siamo</a><a href="#dove-siamo">Dove siamo</a></div>
+    </details>
+  </div>
+</div></header>
+
+<section id="top"><div class="wrap split">
+  <div class="ph tall" style="min-height:200px">FOTO o VIDEO vero, burger da vicino (food porn)<br>[DA DECIDERE: foto o video]</div>
+  <div>
+    <span class="tag">1 · Hero — azione: Ordina su WhatsApp</span>
+    <h1>Zitto e mangia!</h1>
+    <p class="note">⭐ A · B: «La felicità fa crunch.»</p>
+    <p>Burger, pizze e crocchè di Nonna Lina a Feletto Umberto.</p>
+    <strong>4,6 su 5 · 341 recensioni Google</strong>
+    <div class="btns"><a class="btn main" href="#">Ordina su WhatsApp</a><a class="btn" href="#">Prenota un tavolo</a></div>
+    <div class="note">WhatsApp 331 464 9083 con messaggio già scritto: «Ciao Big Mama! Vorrei ordinare…» · Prenota = telefono 0432 465191</div>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <span class="tag">2 · Novità — una card sola, la cambia SocialFOX</span>
+  <h2>Adesso si fa sul serio!</h2>
+  <p class="note">⭐ A · B: «Questo mese da Big Mama»</p>
+  <div class="card split">
+    <div class="ph" style="min-height:160px">FOTO vera della novità</div>
+    <div><div class="note">NOVITÀ · fino al [DATA]</div><h3>[DA DECIDERE: gift card di Natale / crocchè d'oro / evento / special del mese]</h3><p>[DA DECIDERE: 1 frase, massimo 12 parole]</p><a class="btn" href="#">Scrivici su WhatsApp</a></div>
+  </div>
+</div></section>
+
+<section><div class="wrap split">
+  <div class="ph">FOTO vera · tavolata di amici, telefoni giù, mani che prendono (mood ultimo PED)</div>
+  <div>
+    <span class="tag">3 · Per tutti — azione: Prenota un tavolo</span>
+    <h2>Da noi il telefono mangia per ultimo.</h2>
+    <p class="note">⭐ A · B: «Hai fame o vuoi fare filosofia?»</p>
+    <p>«Phone eats first!!»? Da Big Mama non vale.</p>
+    <p>Burger, pizze, veggie e insalatone. Ognuno trova il suo.</p>
+    <a class="btn" href="#">Prenota un tavolo</a>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <span class="tag">4 · Come funziona — 3 modi</span>
+  <h2>Come vuoi tu.</h2>
+  <p class="note">⭐ A · B: «Al tavolo, da asporto o a casa tua.»</p>
+  <div class="grid three">
+    <div class="card"><h3>Mangi da noi</h3><p>Anche ai tavoli fuori.</p><a href="#">Prenota 0432 465191</a></div>
+    <div class="card"><h3>Ordini e passi a ritirare</h3><p>Scrivi, ti diciamo quando è pronto.</p><a href="#">Ordina su WhatsApp</a></div>
+    <div class="card"><h3>Te lo portiamo a casa</h3><p>Consegna a domicilio. [DA CHIEDERE: zone e costo]</p><a href="#">Ordina su WhatsApp</a></div>
+  </div>
+  <p class="note" style="margin-top:12px">Lun–sab 12–14:30 e 18–22:30 · domenica chiuso</p>
+</div></section>
+
+<section id="menu"><div class="wrap">
+  <span class="tag">5 · Prodotti — 3 punti forti, niente carosello · qui porta «Menù»</span>
+  <h2>Non avevi fame? Tranquillo, abbiamo rimediato.</h2>
+  <p class="note">⭐ A · B: «Intanto assaggia questo»</p>
+  <div class="grid three">
+    <div><div class="ph">FOTO vera · crocchè di Nonna Lina, aperta a metà</div><h3>La crocchè di Nonna Lina</h3><p>Ricetta segreta della nonna. Ce l'abbiamo solo noi.</p></div>
+    <div><div class="ph">FOTO vera · burger da vicino</div><h3>I burger</h3><p>15 burger, tutti con le patatine. Carne lavorata in casa.</p></div>
+    <div><div class="ph">FOTO vera · pizza appena sfornata</div><h3>Le pizze</h3><p>Classiche e speciali. Anche per chi non mangia carne.</p></div>
+  </div>
+  <p class="note" style="margin-top:12px">E per chiudere: i dolci fatti da noi.</p>
+  <div class="btns"><a class="btn" href="#">Sfoglia il menù (PDF)</a><a class="btn main" href="#">Ordina su WhatsApp</a></div>
+  <span class="tag" style="margin-top:28px;display:block">5b · Birre</span>
+  <h3>Onesta, Severa, Saggia e Premurosa.</h3>
+  <p class="note">⭐ A · B: «Zitto e bevi!»</p>
+  <p>No, non sono le zie del pranzo della domenica.</p>
+  <p>Sono le nostre 4 birre artigianali.</p>
+  <p>Tu scegli cosa mangiare. All'abbinamento ci pensiamo noi.</p>
+  <div class="cans"><div class="ph">LATTINA · Premurosa · bianca</div><div class="ph">LATTINA · Onesta · bionda</div><div class="ph">LATTINA · Severa · rossa</div><div class="ph">LATTINA · Saggia · IPA</div></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <span class="tag">6 · Prova sociale — solo recensioni vere</span>
+  <h2>4,6 su 5. Lo dicono in 341.</h2>
+  <p class="note">⭐ A · B: «341 recensioni su Google, 4,6 di media.»</p>
+  <div class="grid three">
+    <div class="card">[DA DECIDERE: recensione Google vera n. 1]<div class="note">[NOME autorizzato] · Google</div></div>
+    <div class="card">[DA DECIDERE: recensione Google vera n. 2]<div class="note">[NOME autorizzato] · Google</div></div>
+    <div class="card">[DA DECIDERE: recensione Google vera n. 3]<div class="note">[NOME autorizzato] · Google</div></div>
+  </div>
+  <p class="note" style="margin-top:12px">Senza nomi autorizzati restano solo stelle e numero.</p>
+  <div class="btns"><a class="btn main" href="#">Ordina su WhatsApp</a></div>
+</div></section>
+
+<section id="chi-siamo"><div class="wrap split">
+  <div class="ph">FOTO vera · Andrea e Marco nel locale<br>(mascotte piccola, in un angolo)</div>
+  <div>
+    <span class="tag">7 · Chi siamo e la nonna — azione: Prenota un tavolo · qui porta «Chi siamo»</span>
+    <h2>Come la nonna. Solo molto più Big.</h2>
+    <p class="note">⭐ A · B: «La nonna ha già apparecchiato.»</p>
+    <p>Andrea e Marco partono nel 2020, con il delivery.</p>
+    <p>Oggi Big Mama è un locale giovane e colorato.</p>
+    <p>La crocchè resta quella di nonna Lina.</p>
+    <p class="note">[DA CHIEDERE: storia in 5 righe con le parole dei soci] · la nonna c'è, ma non comanda</p>
+    <a class="btn" href="#">Prenota un tavolo</a>
+  </div>
+</div></section>
+
+<section class="band faq"><div class="wrap">
+  <span class="tag">8 · Domande frequenti — si aprono al tocco</span>
+  <h2>Prima che ce lo chiedi</h2>
+  <p class="note">⭐ A · B: «Domande veloci»</p>
+  <div class="grid">
+    <div class="card">C'è qualcosa per chi non mangia carne? +<div class="note">Sì: pizze, insalatone e piatti veggie.</div></div>
+    <div class="card">Ho un'allergia, come faccio? +<div class="note">[DA COPIARE: frase sugli allergeni del menù]</div></div>
+    <div class="card">Fate asporto e consegna? +<div class="note">Sì, tutti e due. Scrivici su WhatsApp. [DA CHIEDERE: zone]</div></div>
+    <div class="card">C'è parcheggio? È accessibile? +<div class="note">Sì: ingresso, bagno, parcheggio e tavoli accessibili in sedia a rotelle.</div></div>
+    <div class="card">Siamo un gruppo o un'azienda? +<div class="note">[DA DECIDERE: risposta su tavolate e cene aziendali]</div></div>
+  </div>
+</div></section>
+
+<section id="dove-siamo"><div class="wrap split">
+  <div>
+    <span class="tag">9 · Chiusura — contatti e mappa · qui porta «Dove siamo»</span>
+    <h2>Non dire che non ti avevamo avvisato.</h2>
+    <p class="note">⭐ A · B: «Il cibo buono chiama gli amici veri.»</p>
+    <div class="btns"><a class="btn main" href="#">Ordina su WhatsApp</a><a class="btn" href="#">Prenota un tavolo</a></div>
+    <p>Via Enrico Fermi 66, Feletto Umberto (Tavagnacco, UD)<br>Lun–sab 12–14:30 e 18–22:30 · domenica chiuso<br>info@bigmamaburger.it</p>
+    <p class="note">Instagram @bigmamaburger_official · TikTok @bigmamaburger_ (link diretto) · Facebook Big Mama Burger</p>
+  </div>
+  <div class="ph">MAPPA</div>
+</div></section>
+
+<footer><div class="wrap">
+  <span class="tag">10 · Footer</span><br>
+  Food Brand di Delli Santi Andrea &amp; Tikulin Marco S.n.c. · P.IVA 03072300308<br>
+  Privacy · Cookie (iubenda) · Instagram · TikTok · Facebook · Made with love by SocialFOX
+</div></footer>
+
+<section class="band" style="padding-bottom:120px"><div class="wrap">
+  <div class="brief">
+    <span class="tag">Non fa parte della landing · solo per il team</span>
+    <h2>📋 BRIEF · Cosa sistemare prima della grafica</h2>
+    <p class="note">Uscita entro il 30/11. Date proposte da Claude: la volpe del progetto le conferma.</p>
+    <h3>🦊 Lo decide SocialFOX</h3>
+    <ul>
+      <li>Foto o video nell'hero · 🦊 SocialFOX · entro 13/11</li>
+      <li>Cosa va nella card Novità (e fino a quando) · 🦊 SocialFOX · entro 13/11</li>
+      <li>Nome del paese, una forma sola (proposta «Feletto Umberto (Tavagnacco, UD)») · 🦊 SocialFOX · entro 13/11</li>
+      <li>Font Cooper nei titoli sì o no · 🦊 SocialFOX · entro 13/11</li>
+    </ul>
+    <h3>❓ Da chiedere al cliente</h3>
+    <ul>
+      <li>Chi gestisce sito e dominio (serve per metterla online) · 🦊 chiede, risponde il cliente · entro 14/11</li>
+      <li>3 recensioni Google con nome autorizzato · 🦊 chiede, risponde il cliente · entro 14/11</li>
+      <li>Zone e costo della consegna a casa · 🦊 chiede, risponde il cliente · entro 14/11</li>
+      <li>Storia in 5 righe con le loro parole · 🦊 chiede, risponde il cliente · entro 18/11</li>
+    </ul>
+    <h3>📸 Foto da scegliere nel Drive</h3>
+    <p class="note">Cartella: 15_BIG MAMA Landing Page / 01_BIG MAMA / 01_MATERIALI CLIENTE · TIFF → WebP · tutte 🦊 SocialFOX entro 18/11</p>
+    <ul>
+      <li>1 Hero · burger da vicino (o video)</li>
+      <li>2 Novità · foto della novità scelta</li>
+      <li>3 Per tutti · tavolata di amici, telefoni giù</li>
+      <li>5 Prodotti · crocchè aperta a metà · burger · pizza · 4 lattine in fila</li>
+      <li>7 Chi siamo · Andrea e Marco nel locale + mascotte piccola</li>
+      <li>9 Chiusura · nessuna foto (mappa)</li>
+    </ul>
+  </div>
+</div></section>
+
+<div class="bar"><small>Barra fissa · solo sul telefono</small><a class="btn main" href="#">Ordina</a><a class="btn" href="#">Prenota</a></div>
+<script>
+/* Menu ☰: si chiude dopo il tocco su una voce */
+document.querySelectorAll('.menu .drop a').forEach(function(a){a.addEventListener('click',function(){a.closest('details').removeAttribute('open')})});
+</script>
+</body>
+</html>
