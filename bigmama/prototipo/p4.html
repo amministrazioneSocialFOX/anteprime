@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Big Mama · Zitto e mangia! · Prototipo P 4</title>
+<meta name="description" content="Burger, pizze e crocchè di Nonna Lina a Feletto Umberto. Ordina su WhatsApp o prenota un tavolo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Titoli: Fraunces Black «soft» al posto di Cooper BT finché non c'è la licenza web (la scritta dell'hero è il lettering vero, immagine). Testi: Quicksand. -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,900,100&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --giallo:#FFDD00;--nero:#151515;--nerissimo:#0B0B0B;--fucsia:#D62A7E;--rosa:#EE5FA0;--bianco:#fff;
+  --titoli:"Fraunces","Cooper BT","Cooper Black",Georgia,serif;
+  --testi:"Quicksand",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--nerissimo);color:#fff;font:600 17px/1.55 var(--testi)}
+img,video{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+section{padding:72px 0;position:relative;scroll-margin-top:72px;overflow:hidden}
+p{margin:0 0 14px;max-width:50ch}
+
+/* ===== TITOLI come nei post (Canva «Marzo»): niente luce, bordo nero pieno ===== */
+.t{font-family:var(--titoli);font-weight:900;font-variation-settings:"SOFT" 100;line-height:1.02;letter-spacing:-.005em;margin:0 0 16px;
+   font-size:clamp(38px,6.2vw,64px);color:#fff;-webkit-text-stroke:.14em var(--nero);paint-order:stroke fill;text-shadow:.07em .07em 0 var(--nero)}
+.t .g{color:var(--giallo)}
+.t.su-chiaro{text-shadow:none}
+/* stile «GINO IL POLLO»: lettere nere, bordo giallo, su fondo nero */
+.t.gino{color:var(--nero);-webkit-text-stroke:.12em var(--giallo);text-shadow:none;text-transform:uppercase;letter-spacing:.01em}
+.occhiello{font:700 18px var(--testi);margin:0 0 6px;color:#fff}
+
+/* pillole come «Panino + Birra»: Quicksand, piatte */
+.pill{display:inline-block;border-radius:999px;padding:7px 18px;font:700 16px/1.2 var(--testi);background:var(--nero);color:#fff;white-space:nowrap}
+.pill.g{background:var(--giallo);color:var(--nero)}
+.pill.f{background:var(--fucsia);color:#fff}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+
+/* pillole inclinate (Fraunces) come nel P 2: «BIG MAMA / mette d'accordo tutti» */
+.pt{display:inline-block;border-radius:999px;padding:.16em .7em .24em;line-height:1.05;font-family:var(--titoli);font-weight:900;font-variation-settings:"SOFT" 100;background:var(--nero);color:#fff;transform:rotate(-3deg);box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.pt.g{background:var(--giallo);color:var(--nero)}
+.pt.f{background:var(--fucsia);color:#fff}
+.pt.dx{transform:rotate(2deg)}
+.pts{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin:0 0 18px}
+.pts .pt{font-size:clamp(22px,3.2vw,32px)}
+
+/* bottoni */
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:9px;min-height:52px;padding:14px 26px;border-radius:999px;border:3px solid var(--nero);font:700 17px var(--testi);text-decoration:none;transition:transform .15s ease,box-shadow .15s ease;box-shadow:4px 4px 0 var(--nero);cursor:pointer}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--nero)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--nero)}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--rosa);outline-offset:3px}
+.btn.gi{background:var(--giallo);color:var(--nero)}
+.btn.bi{background:#fff;color:var(--nero)}
+.btn.ne{background:var(--nero);color:var(--giallo)}
+.su-nero .btn{border-color:var(--giallo);box-shadow:4px 4px 0 var(--fucsia)}
+.su-nero .btn:hover{box-shadow:6px 6px 0 var(--fucsia)}
+.btn svg{width:22px;height:22px;flex:none}
+.nota{font-size:14px;opacity:.8}
+
+/* ===== HEADER GIALLO con logo vero ===== */
+header{position:sticky;top:0;z-index:20;background:var(--giallo);border-bottom:3px solid var(--nero);color:var(--nero)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+.logo img{height:48px;width:auto}
+header nav{display:flex;gap:22px;order:3;width:100%;font-weight:700;font-size:15px}
+header nav a{text-decoration:none;padding:6px 0;border-bottom:3px solid transparent}
+header nav a:hover{border-color:var(--fucsia)}
+header .btn{min-height:44px;padding:8px 18px;font-size:15px;box-shadow:3px 3px 0 var(--fucsia)}
+
+/* pattern nonna (bianco tenue) */
+.pattern::before{content:"";position:absolute;inset:0;background:url(img/pattern-bianco.svg) center/520px auto repeat;opacity:.07;pointer-events:none;z-index:0}
+.pattern > .wrap{position:relative;z-index:1}
+
+/* ===== HERO NERO ===== */
+.hero{background:var(--nerissimo);padding:28px 0 56px}
+.hero .wrap{display:grid;gap:8px;align-items:center;position:relative}
+.hero .titolo{width:min(100%,560px);margin:0 0 18px;filter:drop-shadow(5px 6px 0 var(--fucsia))}
+.hero .foto{position:relative;order:-1}
+.hero .foto img.piatto{width:100%;max-width:520px;margin:0 auto;aspect-ratio:4/5;object-fit:cover;object-position:center 45%;border-radius:28px}
+.hero .nonna{position:absolute;width:24%;max-width:150px;left:4%;bottom:10px;transform:rotate(-8deg);filter:drop-shadow(4px 5px 0 var(--fucsia))}
+.bollino{position:absolute;right:4%;top:4%;width:78px;height:78px;border-radius:50%;background:var(--fucsia);border:3px solid var(--nero);display:grid;place-items:center;text-align:center;font:900 14px/1.05 var(--titoli);font-variation-settings:"SOFT" 100;transform:rotate(12deg);box-shadow:4px 4px 0 var(--giallo)}
+.bollino b{display:block;font-size:20px;color:var(--giallo)}
+.bollino span{font-size:11px}
+.stelle{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+.stelle i{color:var(--giallo);font-style:normal;letter-spacing:2px}
+.riga-rosa{height:10px;background:repeating-linear-gradient(90deg,var(--fucsia) 0 40px,var(--giallo) 40px 80px)}
+
+/* ===== CONVIVIALITÀ (fucsia) ===== */
+.tavola{background:var(--fucsia)}
+.dueco{display:grid;gap:32px;align-items:center}
+.cornice{border-radius:24px;border:3px solid var(--nero);box-shadow:8px 8px 0 var(--nero);overflow:hidden}
+.cornice img{width:100%;aspect-ratio:4/5;object-fit:cover}
+
+/* ===== TRE MODI (giallo) ===== */
+.modi{background:var(--giallo);color:var(--nero)}
+.tre{display:grid;gap:16px;grid-template-columns:1fr}
+.modo{background:#fff;border:3px solid var(--nero);border-radius:22px;padding:22px;box-shadow:6px 6px 0 var(--nero)}
+.modo svg{width:42px;height:42px;margin-bottom:10px}
+.modo h3{font:900 26px/1.05 var(--titoli);font-variation-settings:"SOFT" 100;margin:0 0 6px}
+.modo a{font-weight:700}
+.orari{margin-top:22px;font-weight:700}
+
+/* ===== MENÙ: pannello fucsia/nero con parola ripetuta (Canva «Marzo») ===== */
+.menu{background:var(--nerissimo)}
+.menu-testo{max-width:780px}
+.pannello{position:relative;display:grid;border-radius:28px;overflow:hidden;border:3px solid var(--nero);min-height:460px;background:linear-gradient(90deg,var(--fucsia) 0 64%,var(--nero) 64% 100%)}
+.ripetuta{position:absolute;inset:0;overflow:hidden;font:900 clamp(64px,10vw,120px)/.92 var(--titoli);font-variation-settings:"SOFT" 100;color:rgba(255,255,255,.17);padding:10px 18px;pointer-events:none;user-select:none;word-break:break-all}
+.pannello .prodotto{position:relative;width:min(88%,560px);margin:24px auto 0;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45));animation:galleggia 6s ease-in-out infinite}
+.pannello .num{position:absolute;right:18px;top:18px;width:58px;height:58px;border-radius:50%;background:var(--fucsia);border:3px solid #fff;display:grid;place-items:center;font:900 28px var(--titoli);font-variation-settings:"SOFT" 100}
+.pannello .etich{position:absolute;left:18px;bottom:18px}
+.pannello .etich .pill{font-size:18px;padding:9px 22px}
+@keyframes galleggia{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+.mosaico{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-flow:dense;gap:12px;margin-top:26px}
+.mosaico figure{margin:0;position:relative;border-radius:18px;overflow:hidden;border:3px solid var(--nero)}
+.mosaico img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/5;transition:transform .5s ease}
+.mosaico figure:hover img{transform:scale(1.05)}
+.mosaico figcaption{position:absolute;left:10px;bottom:12px;right:10px}
+.mosaico figcaption .pt{font-size:clamp(15px,2vw,21px)}
+.mosaico .alta{grid-row:span 2}
+.mosaico .alta img{aspect-ratio:auto}
+/* instagram */
+.insta{background:var(--fucsia)}
+.insta-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px}
+.griglia-ig{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.griglia-ig a{display:block;border-radius:14px;overflow:hidden;border:3px solid var(--nero);position:relative}
+.griglia-ig img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .4s ease}
+.griglia-ig a:hover img{transform:scale(1.06)}
+.foto4{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.foto4 figure{margin:0;position:relative;border-radius:18px;overflow:hidden;border:3px solid var(--nero)}
+.foto4 img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .5s ease}
+.foto4 figure:hover img{transform:scale(1.05)}
+.foto4 figcaption{position:absolute;left:10px;bottom:10px}
+
+/* ===== BIRRE (nero, scritta «Gino») ===== */
+.birre{background:var(--nero)}
+.lattine{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:22px}
+.lattina{text-align:center}
+.lattina img{width:100%;max-width:110px;margin:0 auto 6px;transition:transform .3s ease}
+.lattina:hover img{transform:translateY(-8px) rotate(4deg)}
+.lattina span{font-weight:700;font-size:14px;color:var(--giallo)}
+
+/* ===== GIFT CARD (giallo) con video ===== */
+.gift{background:var(--giallo);color:var(--nero)}
+.video{position:relative;width:min(100%,340px);margin:0 auto;border-radius:28px;overflow:hidden;border:3px solid var(--nero);box-shadow:8px 8px 0 var(--fucsia);background:#000}
+.video video{width:100%;aspect-ratio:9/16;object-fit:cover}
+.audio{position:absolute;right:10px;bottom:10px;min-height:44px;padding:8px 14px;border-radius:999px;border:2px solid var(--nero);background:#fff;font:700 14px var(--testi);cursor:pointer}
+.carta{width:min(100%,440px);border-radius:16px;box-shadow:0 18px 34px rgba(0,0,0,.28);transform:rotate(-4deg);border:3px solid var(--nero);margin:6px 0 22px}
+.crocche{margin-top:26px;display:grid;grid-template-columns:1fr;background:#000;color:#fff;border-radius:22px;overflow:hidden;border:3px solid var(--nero);box-shadow:6px 6px 0 var(--fucsia)}
+.crocche img{width:100%;aspect-ratio:1080/732;object-fit:cover}
+.crocche .testo{padding:4px 20px 20px}
+.crocche .testo .pt{font-size:20px;margin-bottom:10px;white-space:nowrap}
+@media (min-width:860px){.crocche{grid-template-columns:1.1fr 1fr;align-items:center}.crocche .testo{padding:18px 20px 18px 0}}
+.crocche b{color:var(--giallo)}
+
+/* ===== RECENSIONI ===== */
+.recensioni{background:var(--fucsia)}
+.rec{background:#fff;color:var(--nero);border:3px solid var(--nero);border-radius:22px;padding:22px;box-shadow:6px 6px 0 var(--nero);font-size:18px}
+.rec i{display:block;color:var(--fucsia);font-style:normal;letter-spacing:2px;margin-bottom:8px}
+.rec small{display:block;margin-top:10px;font-size:14px;opacity:.7}
+
+/* ===== CHI SIAMO ===== */
+.chi{background:var(--nerissimo)}
+.chi .cornice{position:relative;overflow:visible;border-color:var(--giallo);box-shadow:8px 8px 0 var(--fucsia)}
+.chi .cornice img.grande{border-radius:21px}
+.timbro{position:absolute;right:-14px;bottom:-18px;width:112px;height:112px;border-radius:50%;background:var(--giallo);border:3px solid var(--nero);display:grid;place-items:center;overflow:hidden;transform:rotate(10deg);box-shadow:5px 5px 0 var(--fucsia)}
+.timbro img{width:58%}
+.punti{list-style:none;padding:0;margin:6px 0 10px;display:flex;flex-wrap:wrap;gap:8px}
+.punti li{border:2px solid var(--giallo);color:#fff;border-radius:999px;padding:7px 16px;font-weight:700;font-size:15px}
+
+/* ===== FAQ ===== */
+.faq{background:var(--giallo);color:var(--nero)}
+details{background:#fff;border:3px solid var(--nero);border-radius:18px;margin:0 0 12px;box-shadow:4px 4px 0 var(--nero)}
+summary{cursor:pointer;list-style:none;padding:18px 54px 18px 20px;font-weight:700;position:relative;min-height:44px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);font:900 28px var(--titoli)}
+details[open] summary::after{content:"–"}
+details p{padding:0 20px 18px;margin:0}
+
+/* ===== CHIUSURA + SOCIAL ===== */
+.chiusura{background:var(--nerissimo)}
+.mappa{border:3px solid var(--giallo);border-radius:24px;overflow:hidden;box-shadow:8px 8px 0 var(--fucsia);background:#fff}
+.mappa iframe{display:block;width:100%;height:340px;border:0}
+.social{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.social a{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:10px 20px;border-radius:999px;background:var(--fucsia);color:#fff;text-decoration:none;font-weight:700;border:3px solid var(--fucsia)}
+.social a:hover{background:transparent}
+.social svg{width:20px;height:20px}
+
+footer{background:var(--giallo);color:var(--nero);padding:30px 0 120px;font-size:14px;border-top:3px solid var(--nero)}
+footer .avviso{margin-top:10px;font-size:12px;opacity:.75}
+
+/* barra fissa telefono */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1.3fr 1fr;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--giallo);border-top:3px solid var(--nero)}
+.barra .btn{justify-content:center;min-height:50px;padding:10px;box-shadow:none}
+
+/* pop-up evento */
+.popup{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.72)}
+.popup.aperto{display:flex;animation:appare .35s ease}
+.popup .scheda{position:relative;width:min(100%,440px);max-height:92vh;overflow:auto;background:var(--nero);border:3px solid var(--giallo);border-radius:26px;box-shadow:8px 8px 0 var(--fucsia)}
+.popup img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 40%}
+.popup .corpo{padding:20px 22px 24px}
+.popup .t{font-size:clamp(34px,8vw,44px);margin-top:12px}
+.chiudi{position:absolute;top:10px;right:10px;width:44px;height:44px;border-radius:50%;border:3px solid var(--nero);background:var(--giallo);color:var(--nero);font:900 22px/1 var(--testi);cursor:pointer}
+@keyframes appare{from{opacity:0}to{opacity:1}}
+
+.entra{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.entra.vista{opacity:1;transform:none}
+
+@media (min-width:860px){
+  header nav{order:0;width:auto}
+  .logo img{height:58px}
+  .hero{padding:48px 0 72px}
+  .hero .wrap{grid-template-columns:1.05fr 1fr;gap:48px}
+  .hero .foto{order:2}
+  .hero .nonna{width:30%;left:-2%;bottom:-4%}
+  .bollino{width:96px;height:96px}
+  .bollino span{font-size:13px}
+  .bollino b{font-size:25px}
+  .dueco{grid-template-columns:1fr 1fr;gap:60px}
+  .dueco.inv > :first-child{order:2}
+  .tre{grid-template-columns:repeat(3,1fr);gap:22px}
+  .menu .dueco{grid-template-columns:1.15fr 1fr}
+  .mosaico{grid-template-columns:repeat(4,1fr);gap:14px}
+  .griglia-ig{grid-template-columns:repeat(6,1fr);gap:12px}
+  .barra{display:none}
+  footer{padding-bottom:30px}
+  .mappa iframe{height:420px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .entra{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="logo" href="#" aria-label="Big Mama, torna su"><img src="img/logo-bigmama.webp" alt="Big Mama" width="700" height="441"></a>
+  <nav aria-label="Menu della pagina"><a href="#menu">Menù</a><a href="#chi-siamo">Chi siamo</a><a href="#dove-siamo">Dove siamo</a></nav>
+  <a class="btn ne" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6">Ordina su WhatsApp</a>
+</div></header>
+
+<main>
+<section class="hero su-nero pattern"><div class="wrap">
+  <div>
+    <h1 style="margin:0"><img class="titolo" src="img/zitto-e-mangia-spaziato.webp" alt="Zitto e mangia!" width="1600" height="845" fetchpriority="high"></h1>
+    <div class="pills"><span class="pill g">Cucina a prova di nonna</span><span class="pill f">Burger, pizze e crocchè da urlo</span></div>
+    <span class="stelle"><i aria-hidden="true">★★★★★</i> 4,6 su 5 · 341 recensioni Google</span>
+    <div class="btns">
+      <a class="btn gi" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.4 11.4 0 0 1-4.4-3.9c-.3-.5-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Ordina su WhatsApp</a>
+      <a class="btn bi" href="tel:+390432465191">Prenota un tavolo</a>
+    </div>
+    <p class="nota">Via Enrico Fermi 66, Feletto Umberto · lun–sab a pranzo e a cena</p>
+  </div>
+  <div class="foto">
+    <img class="piatto" src="img/hero-mani-burger.jpg" alt="Quattro mani tengono i burger di Big Mama su fondo nero" width="1125" height="2000">
+    <img class="nonna" src="img/nonna-adesivo.webp" alt="" width="736" height="971">
+    <div class="bollino" aria-hidden="true"><span>Phone<br>eats<br><b>last</b></span></div>
+  </div>
+</div></section>
+
+<section class="tavola pattern"><div class="wrap dueco entra">
+  <div class="cornice"><img src="img/locale-neon.jpg" alt="Una tavolata che ride sotto la scritta al neon Zitto e mangia!" width="1080" height="1350" loading="lazy"></div>
+  <div>
+    <div class="pts"><span class="pt">BIG MAMA</span><span class="pt g dx">mette d'accordo tutti</span></div>
+    <h2 class="t">Qui il telefono mangia <span class="g">per ultimo.</span></h2>
+    <p>«Phone eats first»? Qui non vale.</p>
+    <p>Burger, pizze, veggie e insalatone: c'è posto per tutti.</p>
+    <div class="btns"><a class="btn bi" href="tel:+390432465191">Prenota un tavolo</a></div>
+  </div>
+</div></section>
+
+<section class="modi" aria-labelledby="t-modi"><div class="wrap entra">
+  <h2 id="t-modi" class="t su-chiaro">Come vuoi <span class="g" style="color:var(--fucsia)">mangiare?</span></h2>
+  <div class="tre">
+    <div class="modo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#FFDD00" stroke="#151515" stroke-width="3"/><path d="M15 13v10a4 4 0 0 0 4 4v9M19 13v8M23 13v10a4 4 0 0 1-4 4M31 13c-3 3-3 10 0 13v10" fill="none" stroke="#151515" stroke-width="3" stroke-linecap="round"/></svg><h3>Da noi</h3><p>Il tavolo te lo teniamo noi.</p><a href="tel:+390432465191">Chiama 0432 465191</a></div>
+    <div class="modo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#D62A7E" stroke="#151515" stroke-width="3"/><path d="M15 19h18l-2 16H17zM19 19v-3a5 5 0 0 1 10 0v3" fill="#fff" stroke="#151515" stroke-width="3" stroke-linejoin="round"/></svg><h3>Asporto</h3><p>Scrivi, passi, porti a casa.</p><a href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%20da%20asporto">Scrivi su WhatsApp</a></div>
+    <div class="modo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#151515" stroke="#151515" stroke-width="3"/><circle cx="16" cy="31" r="4" fill="#FFDD00"/><circle cx="33" cy="31" r="4" fill="#FFDD00"/><path d="M12 27h10l4-8h6l3 8M26 19h-5" fill="none" stroke="#FFDD00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>A casa tua</h3><p>Resti sul divano. Arriva caldo.</p><a href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20la%20consegna%20a%20casa">Scrivi su WhatsApp</a></div>
+  </div>
+  <p class="orari">Lun–sab 12–14:30 e 18–22:30 · domenica chiuso</p>
+</div></section>
+
+<section id="menu" class="menu su-nero" aria-labelledby="t-menu"><div class="wrap entra">
+  <div class="menu-testo">
+    <div>
+      <p class="occhiello">Non avevi fame?</p>
+      <h2 id="t-menu" class="t">Scorri pure. <span class="g">Poi non dire</span> che non ti avevamo avvisato.</h2>
+      <p>Montasio DOP, salsa Big Mama e la crocchè dentro. Non è un panino timido.</p>
+      <div class="btns"><a class="btn gi" href="menu.pdf" target="_blank" rel="noopener">Sfoglia il menù</a><a class="btn bi" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6">Ordina su WhatsApp</a></div>
+    </div>
+  </div>
+  <div class="mosaico">
+    <figure><img src="img/burger-filante.jpg" alt="Burger con formaggio filante" width="1120" height="924" loading="lazy"><figcaption><span class="pt g">Fame?</span></figcaption></figure>
+    <figure><img src="img/pizza-morso.jpg" alt="Una ragazza addenta una pizza" width="787" height="1400" loading="lazy"><figcaption><span class="pt">Pizza, ovvio</span></figcaption></figure>
+    <figure><img src="img/crocche-ciotola.jpg" alt="Crocchè di Nonna Lina nella ciotola gialla" width="787" height="840" loading="lazy"><figcaption><span class="pt f">Don't touch my crocchè</span></figcaption></figure>
+    <figure class="alta"><img src="img/pistacchioso.jpg" alt="Il Pistacchioso: pan brioche, crema al pistacchio e Kinder Bueno White" width="1120" height="1400" loading="lazy"><figcaption><span class="pt g">«No, il dolce no»</span></figcaption></figure>
+    <figure><img src="img/burger-crudo.jpg" alt="Burger con crudo e burrata" width="1120" height="1400" loading="lazy"><figcaption><span class="pt">Buffalo Bill</span></figcaption></figure>
+    <figure><img src="img/pizza-olio.jpg" alt="Olio a filo sulla pizza appena sfornata" width="1120" height="1400" loading="lazy"><figcaption><span class="pt g">Bufala Gialla</span></figcaption></figure>
+    <figure><img src="img/pizze.jpg" alt="Due pizze appena sfornate" width="1120" height="1400" loading="lazy"><figcaption><span class="pt f">Due è meglio</span></figcaption></figure>
+  </div>
+</div></section>
+
+<section class="birre su-nero" aria-labelledby="t-birre"><div class="wrap dueco entra">
+  <div class="cornice" style="border-color:var(--giallo);box-shadow:8px 8px 0 var(--fucsia)"><img src="img/birra-onesta-tavolo.jpg" alt="Una ragazza brinda con la birra Onesta" width="1120" height="1400" loading="lazy"></div>
+  <div>
+    <p class="occhiello">Bionda? Possiamo fare di meglio.</p>
+    <h2 id="t-birre" class="t gino">Zitto e bevi!</h2>
+    <p>Onesta, Severa, Saggia e Premurosa. No, non sono le zie. Sono le nostre 4 birre artigianali: tu scegli il piatto, all'abbinamento pensiamo noi.</p>
+    <div class="lattine">
+      <div class="lattina"><img src="img/birra-onesta.png" alt="Lattina Onesta" width="249" height="450" loading="lazy"><span>Onesta</span></div>
+      <div class="lattina"><img src="img/birra-saggia.png" alt="Lattina Saggia" width="249" height="450" loading="lazy"><span>Saggia</span></div>
+      <div class="lattina"><img src="img/birra-severa.png" alt="Lattina Severa" width="249" height="450" loading="lazy"><span>Severa</span></div>
+      <div class="lattina"><img src="img/birra-premurosa.png" alt="Lattina Premurosa" width="249" height="450" loading="lazy"><span>Premurosa</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gift pattern" aria-labelledby="t-gift"><div class="wrap dueco entra">
+  <div class="video">
+    <video id="vid-gift" src="img/giftcard.mp4" poster="img/giftcard-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video: la gift card di Big Mama spiegata al bancone"></video>
+    <button class="audio" type="button" id="audio-gift" aria-pressed="false">Audio off</button>
+  </div>
+  <div>
+    <div class="pills"><span class="pill">Gift card Big Mama</span></div>
+    <h2 id="t-gift" class="t">Da usare <span class="g">con cautela.</span></h2>
+    <p class="occhiello" style="color:var(--nero)">…o anche no.</p>
+    <img class="carta" src="img/giftcard.jpg" alt="La gift card Big Mama: Da usare con cautela… o anche no" width="1477" height="982" loading="lazy">
+    <p>Il regalo che piace a tutti: una cena da Big Mama. Scegli tu l'importo, la ritiri al locale.</p>
+    <div class="btns"><a class="btn ne" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20una%20gift%20card">Chiedi la gift card</a></div>
+    <div class="crocche"><img src="img/crocche-oro.jpg" alt="Quattro crocchè sul nero: una è la Crocchè d'oro" width="1080" height="732" loading="lazy"><div class="testo"><span class="pt g">Crocchè d'oro</span><p style="margin:0">Ogni giorno ce n'è <b>una sola</b>. Se tocca a te, la prossima porzione la offriamo noi.</p></div></div>
+  </div>
+</div></section>
+
+<section class="recensioni pattern" aria-labelledby="t-rec"><div class="wrap entra">
+  <h2 id="t-rec" class="t">4,6 su 5. <span class="g">Lo dicono loro.</span></h2>
+  <div class="tre">
+    <div class="rec"><i aria-hidden="true">★★★★★</i>«L'hamburger era a dir poco fantastico, uno dei migliori che abbia mai mangiato.»<small>G. · Local Guide · Google</small></div>
+    <div class="rec"><i aria-hidden="true">★★★★★</i>«Anche le crocchette della nonna sono davvero buonissime. Hanno anche la loro birra artigianale e dei dolci freschi preparati al momento.»<small>Julieta C. · Google</small></div>
+    <div class="rec"><i aria-hidden="true">★★★★★</i>«Locale divertente e colorato, servizio gentile, sorridente e veloce.»<small>Erica · Local Guide · Google</small></div>
+  </div>
+</div></section>
+
+<section id="chi-siamo" class="chi su-nero" aria-labelledby="t-chi"><div class="wrap dueco entra">
+  <div class="cornice">
+    <img class="grande" src="img/burger-nero.jpg" alt="Burger col pane nero e la bandierina Big Mama" width="1200" height="1500" loading="lazy">
+    <div class="timbro" aria-hidden="true"><img src="img/nonna-gialla.webp" alt="" width="700" height="935" loading="lazy"></div>
+  </div>
+  <div>
+    <h2 id="t-chi" class="t">Come la nonna. <span class="g">Solo più Big.</span></h2>
+    <p>Andrea e Marco sono partiti con delivery e asporto. Oggi Big Mama è un locale giovane e pieno di gente. La crocchè è ancora quella segreta di Nonna Lina.</p>
+    <ul class="punti">
+      <li>Polpetta di manzo con Montasio DOP</li>
+      <li>Crocchè fatte a mano, ogni giorno</li>
+      <li>4 birre artigianali col nostro nome</li>
+      <li>Dolci fatti da noi</li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="faq" aria-labelledby="t-faq"><div class="wrap entra">
+  <h2 id="t-faq" class="t su-chiaro">Domande?<br><span class="g" style="color:var(--fucsia)">Zitto e leggi.</span></h2>
+  <details><summary>C'è qualcosa per chi non mangia carne?</summary><p>Sì: burger veggie, pizze e insalatone. [DA CONFERMARE col cliente]</p></details>
+  <details><summary>Ho un'allergia, come faccio?</summary><p>Dillo quando ordini: gli allergeni sono sul menù e ti aiutiamo a scegliere.</p></details>
+  <details><summary>Fate asporto e consegna?</summary><p>Sì. Scrivici su WhatsApp al 331 464 9083. [Zone e costo della consegna: DA CHIEDERE]</p></details>
+  <details><summary>C'è parcheggio? È accessibile?</summary><p>[DA CHIEDERE al cliente]</p></details>
+  <details><summary>Siamo un gruppo o un'azienda?</summary><p>Perfetto. Chiamaci allo 0432 465191 e organizziamo noi.</p></details>
+</div></section>
+
+<section class="insta pattern" aria-labelledby="t-ig"><div class="wrap entra">
+  <div class="insta-top">
+    <div><div class="pts"><span class="pt">@bigmamaburger_official</span></div><h2 id="t-ig" class="t">Seguici. <span class="g">Ogni settimana</span> una novità.</h2></div>
+    <a class="btn bi" href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener">Apri Instagram</a>
+  </div>
+  <div class="griglia-ig">
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post1.jpg" alt="Post: Don't touch my Kikkiricrock" width="450" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post2.jpg" alt="Post: Big Mama mette d'accordo tutti" width="450" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post3.jpg" alt="Post: Che fame, crocchè nella ciotola gialla" width="450" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post4.jpg" alt="Post: Hai mai trovato una Crocchè d'oro?" width="640" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post5.jpg" alt="Post: Bionda? Possiamo fare di meglio" width="450" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post6.jpg" alt="Post: il nuovo panino di Halloween" width="640" height="800" loading="lazy"></a>
+  </div>
+</div></section>
+
+<section id="dove-siamo" class="chiusura su-nero" aria-labelledby="t-fine"><div class="wrap dueco entra">
+  <div>
+    <h2 id="t-fine" class="t">Non dire che non <span class="g">ti avevamo avvisato.</span></h2>
+    <div class="btns"><a class="btn gi" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6">Ordina su WhatsApp</a><a class="btn bi" href="tel:+390432465191">Prenota un tavolo</a></div>
+    <p>Via Enrico Fermi 66, Feletto Umberto (Tavagnacco, UD)<br>Lun–sab 12–14:30 e 18–22:30 · domenica chiuso</p>
+    <p style="margin:20px 0 4px;font-weight:700;color:var(--giallo)">Seguici: ogni settimana una novità</p>
+    <div class="social">
+      <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>Instagram</a>
+      <a href="https://www.facebook.com/p/Big-Mama-Burger-100066794437830/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.4V14h2.7v8h3.4Z"/></svg>Facebook</a>
+      <a href="#" data-da-confermare="link TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 3c.4 2 1.7 3.4 3.9 3.6v3a7.4 7.4 0 0 1-3.9-1.2v6.4A5.8 5.8 0 1 1 10.8 9v3.1a2.8 2.8 0 1 0 2.8 2.8V3h3Z"/></svg>TikTok</a>
+    </div>
+  </div>
+  <div class="mappa"><iframe title="Mappa: Big Mama, Via Enrico Fermi 66, Feletto Umberto" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Big+Mama+Burger,+Via+Enrico+Fermi+66,+Feletto+Umberto&output=embed"></iframe></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  Food Brand di Delli Santi Andrea &amp; Tikulin Marco S.n.c. · P.IVA 03072300308 · Privacy · Cookie (iubenda) · Made with love by SocialFOX
+  <div class="avviso">Prototipo P 4 · 09/11/2026 · anteprima SocialFOX, non è ancora il sito vero</div>
+</div></footer>
+
+<div class="barra"><a class="btn ne" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6">Ordina</a><a class="btn bi" href="tel:+390432465191">Prenota</a></div>
+
+<div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="pop-titolo">
+  <div class="scheda">
+    <button class="chiudi" type="button" aria-label="Chiudi">✕</button>
+    <img id="pop-img" src="" alt="" width="933" height="1400">
+    <div class="corpo">
+      <span class="pill f" id="pop-etichetta"></span>
+      <h2 id="pop-titolo" class="t"></h2>
+      <p id="pop-testo"></p>
+      <a class="btn gi" id="pop-cta" href="#"></a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== EVENTO DEL MOMENTO: si cambia solo qui (attivo:false = niente pop-up) ===== */
+var EVENTO={
+  attivo:true,
+  etichetta:"EVENTO · 31 ottobre",
+  titolo:"Mama Not Mama",
+  testo:"Halloween Edition: il Vuoto Burger, cocktail da paura e musica. Prenota la cena o passa dopo per un drink.",
+  cta:"Prenota il tuo tavolo",
+  link:"tel:+390432465191",
+  foto:"img/halloween-burger.jpg",
+  alt:"Il burger nero di Halloween col teschio sullo sfondo"
+};
+(function(){
+  var p=document.getElementById('popup');
+  function chiudi(){p.classList.remove('aperto');try{sessionStorage.setItem('bm-pop','1')}catch(e){}}
+  if(EVENTO.attivo){
+    document.getElementById('pop-etichetta').textContent=EVENTO.etichetta;
+    document.getElementById('pop-titolo').textContent=EVENTO.titolo;
+    document.getElementById('pop-testo').textContent=EVENTO.testo;
+    var c=document.getElementById('pop-cta');c.textContent=EVENTO.cta;c.href=EVENTO.link;
+    var im=document.getElementById('pop-img');im.src=EVENTO.foto;im.alt=EVENTO.alt;
+    var visto=false;try{visto=sessionStorage.getItem('bm-pop')==='1'}catch(e){}
+    if(!visto)setTimeout(function(){p.classList.add('aperto');p.querySelector('.chiudi').focus()},1800);
+  }
+  p.querySelector('.chiudi').onclick=chiudi;
+  p.addEventListener('click',function(e){if(e.target===p)chiudi()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&p.classList.contains('aperto'))chiudi()});
+})();
+(function(){
+  var v=document.getElementById('vid-gift'),b=document.getElementById('audio-gift');
+  b.onclick=function(){v.muted=!v.muted;if(!v.muted)v.play();b.setAttribute('aria-pressed',String(!v.muted));b.textContent=v.muted?'Audio off':'Audio on';};
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause();}
+})();
+(function(){
+  var els=document.querySelectorAll('.entra');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vista')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vista');io.unobserve(e.target);}})},{threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
