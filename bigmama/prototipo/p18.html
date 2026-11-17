@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Big Mama · Zitto e mangia! · Prototipo P 18</title>
+<meta name="description" content="Burger, pizze e crocchè di Nonna Lina a Feletto Umberto. Ordina su WhatsApp o prenota un tavolo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Titoli: Fraunces Black «soft» al posto di Cooper BT finché non c'è la licenza web (la scritta dell'hero è il lettering vero, immagine). Testi: Quicksand. -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,900,100&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --giallo:#FFDD00;--nero:#151515;--nerissimo:#0B0B0B;--fucsia:#D62A7E;--rosa:#EE5FA0;--bianco:#fff;
+  --titoli:"Fraunces","Cooper BT","Cooper Black",Georgia,serif;
+  --testi:"Quicksand",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--nerissimo);color:#fff;font:600 17px/1.55 var(--testi)}
+img,video{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+section{padding:72px 0;position:relative;scroll-margin-top:72px;overflow:hidden}
+p{margin:0 0 14px;max-width:50ch}
+
+/* ===== TITOLI come nei post (Canva «Marzo»): niente luce, bordo nero pieno ===== */
+.t{font-family:var(--titoli);font-weight:900;font-variation-settings:"SOFT" 100;line-height:1.02;letter-spacing:-.005em;margin:0 0 16px;
+   font-size:clamp(38px,6.2vw,64px);color:#fff;-webkit-text-stroke:.14em var(--nero);paint-order:stroke fill;text-shadow:.07em .07em 0 var(--nero)}
+.t .g{color:var(--giallo)}
+.t.su-chiaro{text-shadow:none}
+/* stile «GINO IL POLLO»: lettere nere, bordo giallo, su fondo nero */
+.t.gino{color:var(--nero);-webkit-text-stroke:.12em var(--giallo);text-shadow:none;text-transform:uppercase;letter-spacing:.01em}
+.occhiello{font:700 18px var(--testi);margin:0 0 6px;color:#fff}
+
+/* pillole come «Panino + Birra»: Quicksand, piatte */
+.pill{display:inline-block;border-radius:999px;padding:7px 18px;font:700 16px/1.2 var(--testi);background:var(--nero);color:#fff;white-space:nowrap}
+.pill.g{background:var(--giallo);color:var(--nero)}
+.pill.f{background:var(--fucsia);color:#fff}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+
+/* pillole inclinate (Fraunces) come nel P 2: «BIG MAMA / mette d'accordo tutti» */
+.pt{display:inline-block;border-radius:999px;padding:.16em .7em .24em;line-height:1.05;font-family:var(--titoli);font-weight:900;font-variation-settings:"SOFT" 100;background:var(--nero);color:#fff;transform:rotate(-3deg);box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.pt.g{background:var(--giallo);color:var(--nero)}
+.pt.f{background:var(--fucsia);color:#fff}
+.pt.dx{transform:rotate(2deg)}
+.pts{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin:0 0 18px}
+.pts .pt{font-size:clamp(22px,3.2vw,32px)}
+
+/* bottoni */
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:9px;min-height:52px;padding:14px 26px;border-radius:999px;border:3px solid var(--nero);font:700 17px var(--testi);text-decoration:none;transition:transform .15s ease,box-shadow .15s ease;box-shadow:4px 4px 0 var(--nero);cursor:pointer}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--nero)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--nero)}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--rosa);outline-offset:3px}
+.btn.gi{background:var(--giallo);color:var(--nero)}
+.btn.bi{background:#fff;color:var(--nero)}
+.btn.ne{background:var(--nero);color:var(--giallo)}
+.su-nero .btn{border-color:var(--giallo);box-shadow:4px 4px 0 var(--fucsia)}
+.su-nero .btn:hover{box-shadow:6px 6px 0 var(--fucsia)}
+.btn svg{width:22px;height:22px;flex:none}
+.nota{font-size:14px;opacity:.8}
+
+/* ===== HEADER GIALLO con logo vero ===== */
+header{position:sticky;top:0;z-index:20;background:var(--giallo);border-bottom:3px solid var(--nero);color:var(--nero)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+.logo img{height:48px;width:auto}
+header nav{display:flex;gap:4px;order:3;width:100%;font-weight:700;font-size:15px;margin-left:0;gap:10px}
+/* P 12: voce del menù dentro una nuvoletta (fucsia, bordo nero) quando ci passi sopra o sei in quella sezione */
+header nav a{position:relative;z-index:0;text-decoration:none;padding:8px 14px;transition:color .15s ease}
+header nav a::before{content:"";position:absolute;inset:-8px -9px;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80' preserveAspectRatio='none'%3E%3Cg fill='%23151515' stroke='%23151515' stroke-width='6'%3E%3Cellipse cx='100' cy='40' rx='64' ry='17' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='50' cy='29' rx='21' ry='21' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='88' cy='27' rx='23' ry='23' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='128' cy='26' rx='23' ry='23' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='160' cy='31' rx='19' ry='19' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='44' cy='52' rx='19' ry='19' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='80' cy='54' rx='22' ry='22' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='120' cy='55' rx='22' ry='22' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='156' cy='51' rx='20' ry='20' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='27' cy='41' rx='17' ry='17' vector-effect='non-scaling-stroke'/%3E%3Cellipse cx='176' cy='41' rx='16' ry='16' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Cg fill='%23D62A7E'%3E%3Cellipse cx='100' cy='40' rx='64' ry='17'/%3E%3Cellipse cx='50' cy='29' rx='21' ry='21'/%3E%3Cellipse cx='88' cy='27' rx='23' ry='23'/%3E%3Cellipse cx='128' cy='26' rx='23' ry='23'/%3E%3Cellipse cx='160' cy='31' rx='19' ry='19'/%3E%3Cellipse cx='44' cy='52' rx='19' ry='19'/%3E%3Cellipse cx='80' cy='54' rx='22' ry='22'/%3E%3Cellipse cx='120' cy='55' rx='22' ry='22'/%3E%3Cellipse cx='156' cy='51' rx='20' ry='20'/%3E%3Cellipse cx='27' cy='41' rx='17' ry='17'/%3E%3Cellipse cx='176' cy='41' rx='16' ry='16'/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;opacity:0;transform:scale(.5) rotate(-6deg);transition:transform .24s cubic-bezier(.34,1.56,.64,1),opacity .12s ease}
+header nav a:nth-child(1)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 52' preserveAspectRatio='none'%3E%3Cg fill='%23151515'%3E%3Ccircle cx='27' cy='21' r='16'/%3E%3Ccircle cx='47' cy='17' r='17'/%3E%3Ccircle cx='64' cy='22' r='15'/%3E%3Ccircle cx='24' cy='33' r='15'/%3E%3Ccircle cx='43' cy='36' r='16'/%3E%3Ccircle cx='62' cy='34' r='16'/%3E%3Ccircle cx='15' cy='27' r='13'/%3E%3Ccircle cx='74' cy='28' r='13'/%3E%3Crect x='15' y='15' width='58' height='24' rx='6'/%3E%3C/g%3E%3Cg fill='%23D62A7E'%3E%3Ccircle cx='27' cy='21' r='13'/%3E%3Ccircle cx='47' cy='17' r='14'/%3E%3Ccircle cx='64' cy='22' r='12'/%3E%3Ccircle cx='24' cy='33' r='12'/%3E%3Ccircle cx='43' cy='36' r='13'/%3E%3Ccircle cx='62' cy='34' r='13'/%3E%3Ccircle cx='15' cy='27' r='10'/%3E%3Ccircle cx='74' cy='28' r='10'/%3E%3Crect x='18' y='18' width='52' height='18' rx='4'/%3E%3C/g%3E%3C/svg%3E")}
+header nav a:nth-child(2)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 52' preserveAspectRatio='none'%3E%3Cg fill='%23151515'%3E%3Ccircle cx='26' cy='22' r='15'/%3E%3Ccircle cx='46' cy='18' r='17'/%3E%3Ccircle cx='70' cy='16' r='16'/%3E%3Ccircle cx='92' cy='19' r='16'/%3E%3Ccircle cx='103' cy='24' r='13'/%3E%3Ccircle cx='24' cy='33' r='15'/%3E%3Ccircle cx='44' cy='36' r='16'/%3E%3Ccircle cx='66' cy='35' r='15'/%3E%3Ccircle cx='88' cy='36' r='16'/%3E%3Ccircle cx='102' cy='32' r='14'/%3E%3Ccircle cx='14' cy='27' r='13'/%3E%3Ccircle cx='111' cy='28' r='13'/%3E%3Crect x='15' y='15' width='94' height='24' rx='6'/%3E%3C/g%3E%3Cg fill='%23D62A7E'%3E%3Ccircle cx='26' cy='22' r='12'/%3E%3Ccircle cx='46' cy='18' r='14'/%3E%3Ccircle cx='70' cy='16' r='13'/%3E%3Ccircle cx='92' cy='19' r='13'/%3E%3Ccircle cx='103' cy='24' r='10'/%3E%3Ccircle cx='24' cy='33' r='12'/%3E%3Ccircle cx='44' cy='36' r='13'/%3E%3Ccircle cx='66' cy='35' r='12'/%3E%3Ccircle cx='88' cy='36' r='13'/%3E%3Ccircle cx='102' cy='32' r='11'/%3E%3Ccircle cx='14' cy='27' r='10'/%3E%3Ccircle cx='111' cy='28' r='10'/%3E%3Crect x='18' y='18' width='88' height='18' rx='4'/%3E%3C/g%3E%3C/svg%3E")}
+header nav a:nth-child(3)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 142 52' preserveAspectRatio='none'%3E%3Cg fill='%23151515'%3E%3Ccircle cx='26' cy='22' r='15'/%3E%3Ccircle cx='47' cy='18' r='17'/%3E%3Ccircle cx='71' cy='16' r='16'/%3E%3Ccircle cx='95' cy='18' r='17'/%3E%3Ccircle cx='116' cy='22' r='15'/%3E%3Ccircle cx='24' cy='33' r='15'/%3E%3Ccircle cx='45' cy='36' r='16'/%3E%3Ccircle cx='69' cy='35' r='15'/%3E%3Ccircle cx='93' cy='36' r='16'/%3E%3Ccircle cx='115' cy='33' r='15'/%3E%3Ccircle cx='14' cy='27' r='13'/%3E%3Ccircle cx='129' cy='28' r='13'/%3E%3Crect x='15' y='15' width='112' height='24' rx='6'/%3E%3C/g%3E%3Cg fill='%23D62A7E'%3E%3Ccircle cx='26' cy='22' r='12'/%3E%3Ccircle cx='47' cy='18' r='14'/%3E%3Ccircle cx='71' cy='16' r='13'/%3E%3Ccircle cx='95' cy='18' r='14'/%3E%3Ccircle cx='116' cy='22' r='12'/%3E%3Ccircle cx='24' cy='33' r='12'/%3E%3Ccircle cx='45' cy='36' r='13'/%3E%3Ccircle cx='69' cy='35' r='12'/%3E%3Ccircle cx='93' cy='36' r='13'/%3E%3Ccircle cx='115' cy='33' r='12'/%3E%3Ccircle cx='14' cy='27' r='10'/%3E%3Ccircle cx='129' cy='28' r='10'/%3E%3Crect x='18' y='18' width='106' height='18' rx='4'/%3E%3C/g%3E%3C/svg%3E")}
+@media (max-width:859px){header nav{padding:5px 0 5px 8px}}
+@media (min-width:860px){header nav{gap:4px}}
+header nav a:hover,header nav a:focus-visible,header nav a:active,header nav a.qui{color:#fff;outline:0}
+header nav a:hover::before,header nav a:focus-visible::before,header nav a:active::before,header nav a.qui::before{opacity:1;transform:none}
+header .btn{min-height:44px;padding:8px 18px;font-size:15px;box-shadow:3px 3px 0 var(--fucsia)}
+
+/* pattern nonna (bianco tenue) */
+.pattern::before{content:"";position:absolute;inset:0;background:url(img/pattern-bianco.svg) center/520px auto repeat;opacity:.07;pointer-events:none;z-index:0}
+.pattern > .wrap{position:relative;z-index:1}
+
+/* ===== HERO NERO ===== */
+.hero{background:var(--nerissimo);padding:28px 0 56px}
+.hero .wrap{display:grid;gap:8px;align-items:center;position:relative}
+.hero .titolo{width:min(100%,560px);margin:0 0 18px;filter:drop-shadow(5px 6px 0 var(--fucsia))}
+.hero .foto{position:relative;order:-1}
+.hero .foto img.piatto{width:100%;max-width:520px;margin:0 auto;aspect-ratio:4/5;object-fit:cover;object-position:center 45%;border-radius:22px}
+.hero .titolo{width:min(100%,430px)}
+.hero .nonna{position:absolute;width:24%;max-width:150px;left:4%;bottom:10px;transform:rotate(-8deg);filter:drop-shadow(4px 5px 0 var(--fucsia))}
+.bollino{position:absolute;right:4%;top:4%;width:78px;height:78px;border-radius:50%;background:var(--fucsia);border:3px solid var(--nero);display:grid;place-items:center;text-align:center;font:900 14px/1.05 var(--titoli);font-variation-settings:"SOFT" 100;transform:rotate(12deg);box-shadow:4px 4px 0 var(--giallo)}
+.bollino b{display:block;font-size:20px;color:var(--giallo)}
+.bollino span{font-size:11px}
+/* P 10: frase sotto il titolo come testo, non come tasto (niente fondo, niente capsula) */
+.hero-frase{margin:0 0 20px;max-width:none;font:600 clamp(21px,5.6vw,27px)/1.2 var(--titoli);color:#fff}
+.hero-frase b{font-weight:inherit;color:var(--giallo)}
+.hero-frase span{display:block}
+.stelle{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+.stelle i{color:var(--giallo);font-style:normal;letter-spacing:2px}
+.riga-rosa{height:10px;background:repeating-linear-gradient(90deg,var(--fucsia) 0 40px,var(--giallo) 40px 80px)}
+
+/* ===== CONVIVIALITÀ (fucsia) ===== */
+.tavola{background:var(--fucsia)}
+.dueco{display:grid;gap:32px;align-items:center}
+.cornice{border-radius:24px;border:3px solid var(--nero);box-shadow:8px 8px 0 var(--nero);overflow:hidden}
+.cornice img{width:100%;aspect-ratio:4/5;object-fit:cover}
+
+/* ===== TRE MODI (giallo) ===== */
+.modi{background:var(--giallo);color:var(--nero)}
+.tre{display:grid;gap:16px;grid-template-columns:1fr}
+.modo{background:#fff;border:3px solid var(--nero);border-radius:22px;padding:22px;box-shadow:6px 6px 0 var(--nero)}
+.modo svg{width:42px;height:42px;margin-bottom:10px}
+.modo h3{font:900 26px/1.05 var(--titoli);font-variation-settings:"SOFT" 100;margin:0 0 6px}
+.modo a{font-weight:700}
+.orari{margin-top:22px;font-weight:700}
+
+/* ===== MENÙ: pannello fucsia/nero con parola ripetuta (Canva «Marzo») ===== */
+.menu{background:var(--nerissimo)}
+.menu-testo{max-width:780px}
+.pannello{position:relative;display:grid;border-radius:28px;overflow:hidden;border:3px solid var(--nero);min-height:460px;background:linear-gradient(90deg,var(--fucsia) 0 64%,var(--nero) 64% 100%)}
+.ripetuta{position:absolute;inset:0;overflow:hidden;font:900 clamp(64px,10vw,120px)/.92 var(--titoli);font-variation-settings:"SOFT" 100;color:rgba(255,255,255,.17);padding:10px 18px;pointer-events:none;user-select:none;word-break:break-all}
+.pannello .prodotto{position:relative;width:min(88%,560px);margin:24px auto 0;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45));animation:galleggia 6s ease-in-out infinite}
+.pannello .num{position:absolute;right:18px;top:18px;width:58px;height:58px;border-radius:50%;background:var(--fucsia);border:3px solid #fff;display:grid;place-items:center;font:900 28px var(--titoli);font-variation-settings:"SOFT" 100}
+.pannello .etich{position:absolute;left:18px;bottom:18px}
+.pannello .etich .pill{font-size:18px;padding:9px 22px}
+@keyframes galleggia{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+.mosaico{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-flow:dense;gap:12px;margin-top:26px}
+.mosaico figure{margin:0;position:relative;border-radius:18px;overflow:hidden;border:3px solid var(--nero)}
+.mosaico img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/5;transition:transform .5s ease}
+.mosaico figure:hover img{transform:scale(1.05)}
+.mosaico figcaption{position:absolute;left:10px;bottom:12px;right:10px}
+.mosaico figure{container-type:inline-size}
+.mosaico figcaption .pt{font-size:clamp(15px,2vw,21px);font-size:clamp(12.5px,8cqw,21px);max-width:100%;border-radius:1em;text-wrap:balance}
+.mosaico .alta{grid-row:span 2}
+.mosaico .alta img{aspect-ratio:auto}
+/* instagram */
+.insta{background:var(--fucsia)}
+.insta-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px}
+.griglia-ig{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.griglia-ig a{display:block;border-radius:14px;overflow:hidden;border:3px solid var(--nero);position:relative}
+.griglia-ig img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .4s ease}
+.griglia-ig a:hover img{transform:scale(1.06)}
+.foto4{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.foto4 figure{margin:0;position:relative;border-radius:18px;overflow:hidden;border:3px solid var(--nero)}
+.foto4 img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .5s ease}
+.foto4 figure:hover img{transform:scale(1.05)}
+.foto4 figcaption{position:absolute;left:10px;bottom:10px}
+
+/* ===== BIRRE (nero, scritta «Gino») ===== */
+.birre{background:var(--nero)}
+.lattine{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:22px}
+.lattina{text-align:center}
+.lattina img{width:100%;max-width:110px;margin:0 auto 6px;transition:transform .3s ease}
+.lattina:hover img{transform:translateY(-8px) rotate(4deg)}
+.lattina span{font-weight:700;font-size:14px;color:var(--giallo)}
+
+/* ===== GIFT CARD (giallo) con video ===== */
+.gift{background:var(--giallo);color:var(--nero)}
+.video{position:relative;width:min(100%,340px);margin:0 auto;border-radius:28px;overflow:hidden;border:3px solid var(--nero);box-shadow:8px 8px 0 var(--fucsia);background:#000}
+.video video{width:100%;aspect-ratio:9/16;object-fit:cover}
+.audio{position:absolute;right:10px;bottom:10px;min-height:44px;padding:8px 14px;border-radius:999px;border:2px solid var(--nero);background:#fff;font:700 14px var(--testi);cursor:pointer}
+.carte{width:min(100%,400px);margin:22px 0 34px}
+.carte img{width:100%;border-radius:14px;border:3px solid var(--nero);box-shadow:0 14px 28px rgba(0,0,0,.28);transform:rotate(-4deg)}
+.crocche{margin-top:26px;display:grid;grid-template-columns:1fr;background:#000;color:#fff;border-radius:22px;overflow:hidden;border:3px solid var(--nero);box-shadow:6px 6px 0 var(--fucsia)}
+.crocche img{width:100%;max-width:280px;height:auto;margin:16px auto 0;object-fit:contain}
+.crocche .testo{padding:4px 20px 20px}
+.crocche .testo .pt{font-size:20px;margin-bottom:10px}
+@media (min-width:860px){.crocche{grid-template-columns:240px 1fr;align-items:center}.crocche img{max-width:220px;margin:14px 0 14px 16px}.crocche .testo{padding:18px 22px 18px 10px}}
+.crocche b{color:var(--giallo)}
+
+.comandi{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:10px}
+.comandi button{width:46px;height:46px;border-radius:50%;border:2px solid var(--nero);background:#fff;color:var(--nero);display:grid;place-items:center;cursor:pointer;box-shadow:2px 2px 0 var(--nero)}
+.comandi button:hover{background:var(--giallo)}
+.comandi svg{width:22px;height:22px}
+.info-riga{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.info-riga span{display:inline-flex;align-items:center;gap:6px;border:2px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700}
+.info-riga svg{width:16px;height:16px;color:var(--giallo);flex:none}
+@media (min-width:860px){br.tel{display:none}}
+/* Crocchè d'oro: foto di studio + biglietto vero inclinato */
+.oro{margin-top:28px;display:grid;grid-template-columns:1fr;background:#000;color:#fff;border-radius:22px;overflow:hidden;border:3px solid var(--nero);box-shadow:6px 6px 0 var(--fucsia)}
+.oro-foto{width:100%;height:210px;object-fit:cover;object-position:center 55%;-webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+.oro-testo{padding:0 20px 20px;position:relative}
+.oro-ticket{display:block;width:min(78%,270px);margin:-44px 0 14px auto;transform:rotate(-6deg);border-radius:10px;border:3px solid var(--nero);box-shadow:0 14px 26px rgba(0,0,0,.55);animation:luccica 4s ease-in-out infinite}
+.oro-titolo{font:900 22px/1.15 var(--titoli);font-variation-settings:"SOFT" 100;margin:0 0 6px}
+.oro-titolo b{color:var(--giallo)}
+.oro-testo p:last-child{margin:0;font-size:15px;opacity:.9}
+@keyframes luccica{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(-3deg) translateY(-3px)}}
+@media (min-width:860px){.oro{grid-template-columns:.62fr 1fr;align-items:center}.oro-foto{height:100%;min-height:300px;-webkit-mask-image:linear-gradient(90deg,#000 68%,transparent);mask-image:linear-gradient(90deg,#000 68%,transparent)}.oro-testo{padding:30px 40px 30px 24px;display:grid;grid-template-columns:1fr auto;column-gap:26px;align-items:center}.oro-ticket{grid-column:2;grid-row:1/3;margin:0;width:200px;transform:rotate(5deg)}.oro-titolo{grid-column:1;align-self:end;margin-bottom:10px}.oro-testo p:last-child{grid-column:1;align-self:start}}
+
+/* ===== RECENSIONI ===== */
+.recensioni{background:var(--fucsia)}
+.rec{background:#fff;color:var(--nero);border:3px solid var(--nero);border-radius:22px;padding:22px;box-shadow:6px 6px 0 var(--nero);font-size:18px}
+.rec i{display:block;color:var(--fucsia);font-style:normal;letter-spacing:2px;margin-bottom:8px}
+.rec small{display:block;margin-top:10px;font-size:14px;opacity:.7}
+
+/* ===== CHI SIAMO ===== */
+.chi{background:var(--nerissimo)}
+.chi .cornice{position:relative;overflow:visible;border-color:var(--giallo);box-shadow:8px 8px 0 var(--fucsia)}
+.chi .cornice img.grande{border-radius:21px}
+.timbro{position:absolute;right:10px;bottom:-20px;width:154px;height:154px;border-radius:50%;background:var(--fucsia);border:4px solid #fff;display:grid;place-items:center;overflow:hidden;transform:rotate(9deg);box-shadow:5px 5px 0 var(--giallo)}
+.timbro img{position:absolute;top:52%;left:50%;height:82%;width:auto;max-width:none;transform:translate(-50%,-50%)}
+@media (min-width:860px){.timbro{width:118px;height:118px;right:-22px;bottom:-24px;border-width:3px}}
+@media (max-width:859px){.timbro{width:104px;height:104px;right:14px;bottom:-30px;border-width:3px;box-shadow:4px 4px 0 var(--giallo)}}
+.ricetta{position:relative;margin:18px 0 6px;max-width:440px;background:#FFF8E1;color:var(--nero);border-radius:6px;padding:26px 24px 18px;transform:rotate(-1.5deg);box-shadow:6px 6px 0 var(--fucsia)}
+.ricetta::before{content:"";position:absolute;top:-12px;left:50%;width:120px;height:26px;background:var(--giallo);opacity:.92;transform:translateX(-50%) rotate(2deg)}
+.ricetta h3{font:900 24px/1.1 var(--titoli);font-variation-settings:"SOFT" 100;margin:0 0 4px}
+.ricetta .sotto{font-size:13px;opacity:.7;margin:0 0 12px}
+.ricetta ol{list-style:none;margin:0;padding:0;counter-reset:r}
+.ricetta li{counter-increment:r;display:flex;gap:12px;align-items:baseline;padding:8px 0;border-top:2px dashed rgba(21,21,21,.18);font-weight:700}
+.ricetta li::before{content:counter(r);flex:none;width:28px;height:28px;border-radius:50%;background:var(--nero);color:var(--giallo);display:grid;place-items:center;font:900 15px var(--titoli);font-variation-settings:"SOFT" 100}
+.ricetta li small{display:block;font-weight:600;opacity:.65}
+
+/* ===== FAQ ===== */
+.faq{background:var(--giallo);color:var(--nero)}
+details{background:#fff;border:3px solid var(--nero);border-radius:18px;margin:0 0 12px;box-shadow:4px 4px 0 var(--nero)}
+summary{cursor:pointer;list-style:none;padding:18px 54px 18px 20px;font-weight:700;position:relative;min-height:44px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);font:900 28px var(--titoli)}
+details[open] summary::after{content:"–"}
+details p{padding:0 20px 18px;margin:0}
+
+/* ===== CHIUSURA + SOCIAL ===== */
+.chiusura{background:var(--nerissimo)}
+.mappa{border:3px solid var(--giallo);border-radius:24px;overflow:hidden;box-shadow:8px 8px 0 var(--fucsia);background:#fff}
+.mappa iframe{display:block;width:100%;height:340px;border:0}
+.social{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.social a{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:10px 20px;border-radius:999px;background:var(--fucsia);color:#fff;text-decoration:none;font-weight:700;border:3px solid var(--fucsia)}
+.social a:hover{background:transparent}
+.social svg{width:20px;height:20px}
+
+footer{background:var(--giallo);color:var(--nero);padding:30px 0 0;font-size:14px;border-top:3px solid var(--nero)}
+footer .avviso{margin-top:10px;font-size:12px;opacity:.75}
+.firma{margin-top:26px;background:var(--nero);color:#fff;text-align:center;font:700 16px/1.3 var(--testi);padding:15px 16px calc(15px + 76px + env(safe-area-inset-bottom))}
+
+/* barra fissa telefono */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1.3fr 1fr;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--giallo);border-top:3px solid var(--nero)}
+.barra .btn{justify-content:center;min-height:50px;padding:10px;box-shadow:none}
+
+/* pop-up evento */
+.popup{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.72)}
+.popup.aperto{display:flex;animation:appare .35s ease}
+.popup .scheda{position:relative;width:min(100%,440px);max-height:92vh;overflow:auto;background:var(--nero);border:3px solid var(--giallo);border-radius:26px;box-shadow:8px 8px 0 var(--fucsia)}
+.popup img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 40%}
+.popup .corpo{padding:20px 22px 24px}
+.popup .t{font-size:clamp(34px,8vw,44px);margin-top:12px}
+.chiudi{position:absolute;top:10px;right:10px;width:44px;height:44px;border-radius:50%;border:3px solid var(--nero);background:var(--giallo);color:var(--nero);font:900 22px/1 var(--testi);cursor:pointer}
+@keyframes appare{from{opacity:0}to{opacity:1}}
+
+.entra{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.entra.vista{opacity:1;transform:none}
+
+@media (min-width:860px){
+  header nav{order:0;width:auto}
+  .logo img{height:58px}
+  .hero{padding:48px 0 72px}
+  .hero .wrap{grid-template-columns:1.05fr 1fr;gap:48px}
+  .hero .foto{order:2}
+  .hero .foto img.piatto{aspect-ratio:4/5;border-radius:28px}
+  .hero .titolo{width:min(100%,560px)}
+  .hero .nonna{width:30%;left:-2%;bottom:-4%}
+  .bollino{width:96px;height:96px}
+  .bollino span{font-size:13px}
+  .bollino b{font-size:25px}
+  .dueco{grid-template-columns:1fr 1fr;gap:60px}
+  .dueco.inv > :first-child{order:2}
+  .tre{grid-template-columns:repeat(3,1fr);gap:22px}
+  .menu .dueco{grid-template-columns:1.15fr 1fr}
+  .mosaico{grid-template-columns:repeat(4,1fr);gap:14px}
+  .griglia-ig{grid-template-columns:repeat(6,1fr);gap:12px}
+  .barra{display:none}
+  footer{padding-bottom:0}
+  .firma{padding-bottom:15px}
+  .mappa iframe{height:420px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .entra{opacity:1;transform:none}
+}
+/* P 12: sul telefono il video sta intero tra la barra gialla in alto e i tasti in basso */
+@media (max-width:859px){
+  .gift .video{width:min(100%,340px,calc((100vh - 222px)*.5625));width:min(100%,340px,calc((100svh - 222px)*.5625))}
+  .gift{scroll-margin-top:120px}
+}
+/* P 12: sul computer ogni foto o video sta intero in uno schermo di portatile */
+@media (min-width:860px){
+  .hero{padding:30px 0 52px}
+  .hero .foto{justify-self:center;width:fit-content;max-width:100%}
+  .hero .foto img.piatto{aspect-ratio:1125/2000;width:auto;max-width:100%;height:min(calc(100vh - 160px),740px);min-height:420px;margin:0}
+  .hero .nonna{width:150px;max-width:none;left:-78px;bottom:-3%}
+  .hero .btns{margin:24px 0 0}
+  .dueco > .cornice{width:min(100%,calc((100vh - 190px)*.8));min-width:300px;justify-self:center}
+  .dueco p:not(.occhiello):not(.oro-titolo){font-size:19px}
+  .dueco .t{margin-bottom:20px}
+  .gift .video{width:min(100%,340px,calc((100vh - 180px)*.5625))}
+  .gift .carte{width:min(100%,330px);margin:20px 0 32px}
+  .gift .dueco{row-gap:44px}
+  .gift .oro{grid-column:1/-1;margin-top:0;max-width:1040px;justify-self:center;width:100%}
+  .gift .oro p{font-size:17px}
+  .gift .oro .oro-titolo{font-size:30px}
+}
+
+/* ===== P 14: più chiaro e più ordinato ===== */
+/* i tre modi: il link diventa un tasto vero */
+.modo a{display:inline-flex;align-items:center;min-height:44px;margin-top:4px;padding:8px 18px;border-radius:999px;background:var(--nero);color:var(--giallo);text-decoration:none;font-weight:700;transition:transform .15s ease}
+.modo a:hover{transform:translate(-2px,-2px)}
+.modo p{margin-bottom:10px}
+@media (max-width:859px){
+  /* primo schermo: foto più bassa, così titolo e frase si vedono senza scorrere */
+  .hero .foto img.piatto{aspect-ratio:1/1;object-position:center 34%}
+  /* i tre modi più compatti: icona a sinistra */
+  .modo{display:grid;grid-template-columns:42px 1fr;column-gap:14px;padding:18px}
+  .modo svg{grid-row:1/4;margin:2px 0 0}
+  .modo a{justify-self:start}
+  /* gift card: prima il titolo e la carta, poi il video */
+  .gift .dueco > .video{order:2}
+  .gift .oro{order:3;margin-top:0}
+}
+
+/* ===== P 15: la nonna risponde quando la tocchi (si muove come un adesivo, non si deforma) ===== */
+.hero .nonna{z-index:3}
+.nonna button{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transform-origin:50% 92%;}
+.nonna button img{width:100%;height:auto}
+.nonna button:hover{animation:nonna-dondola .7s ease-in-out infinite}
+.nonna button.salta{animation:nonna-salta .6s cubic-bezier(.3,1.5,.5,1)}
+.nonna button:focus-visible{outline:3px solid var(--giallo);outline-offset:4px;border-radius:12px}
+@keyframes nonna-saluto{0%,84%,100%{transform:none}88%{transform:rotate(7deg)}92%{transform:rotate(-5deg)}96%{transform:rotate(4deg)}}
+@keyframes nonna-dondola{0%,100%{transform:rotate(4deg)}50%{transform:rotate(-4deg)}}
+@keyframes nonna-salta{0%{transform:none}35%{transform:translateY(-22px) rotate(10deg)}70%{transform:translateY(0) rotate(-4deg)}100%{transform:none}}
+.fumetto{position:absolute;left:58%;bottom:86%;width:max-content;max-width:210px;padding:9px 16px 11px;border-radius:20px 20px 20px 4px;background:#fff;color:var(--nero);border:3px solid var(--nero);font:900 19px/1.1 var(--titoli);font-variation-settings:"SOFT" 100;transform:rotate(8deg) scale(.3);transform-origin:0 100%;opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.34,1.56,.64,1),opacity .12s ease}
+.fumetto.su{opacity:1;transform:rotate(8deg) scale(1)}
+@media (max-width:859px){.fumetto{font-size:17px;max-width:180px;left:70%;bottom:80%}}
+
+/* ===== P 17 ===== */
+.oro[hidden]{display:none}
+.timbro img{height:74%}
+/* indirizzo e orari in chiusura */
+.dove{list-style:none;margin:24px 0 0;padding:6px 18px;max-width:440px;border:2px solid rgba(255,255,255,.2);border-radius:22px}
+.dove li{display:flex;gap:14px;align-items:flex-start;padding:13px 0}
+.dove li+li{border-top:2px dashed rgba(255,255,255,.16)}
+.dove svg{width:24px;height:24px;color:var(--giallo);flex:none;margin-top:2px}
+.dove b{display:block;font-size:18px;line-height:1.25}
+.dove small{display:block;font-size:15px;font-weight:600;opacity:.82;margin-top:2px}
+.dove a{display:inline-block;margin-top:6px;font-size:15px;font-weight:700;color:var(--giallo);text-underline-offset:3px;min-height:28px}
+/* lattine come tasti */
+button.lattina{background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:14px}
+button.lattina img{pointer-events:none}
+button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
+.lattine-nota{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:15px;font-weight:700;color:#fff;opacity:.85}
+.lattine-nota svg{width:18px;height:18px;color:var(--giallo);flex:none}
+/* la lattina in 3D */
+.l3d{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(0,0,0,.84)}
+.l3d.aperto{display:flex}
+.l3d-scheda{position:relative;width:min(100%,440px);max-height:100%;background:var(--nero);border:3px solid var(--giallo);border-radius:26px;box-shadow:8px 8px 0 var(--fucsia);padding:16px 16px 20px;text-align:center;overflow:hidden}
+.l3d-chiudi{position:absolute;top:10px;right:10px;z-index:2;width:44px;height:44px;border-radius:50%;border:3px solid var(--nero);background:var(--giallo);color:var(--nero);font:900 18px var(--testi);cursor:pointer}
+.l3d-scena{position:relative;height:min(52vh,430px);height:min(52svh,430px);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.l3d-scena.presa{cursor:grabbing}
+.l3d-scena::before{content:"";position:absolute;left:50%;top:50%;width:min(78%,300px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:var(--alone,var(--giallo));opacity:.2}
+.l3d-scena::after{content:"";position:absolute;left:50%;bottom:3%;width:38%;height:16px;border-radius:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);filter:blur(7px)}
+.l3d-scena canvas,.l3d-scena img{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.l3d-scena img{object-fit:contain;padding:14px 0}
+.l3d-nome{font-family:var(--titoli);font-weight:900;font-variation-settings:"SOFT" 100;font-size:34px;line-height:1;margin:6px 0 6px;color:var(--giallo);text-transform:uppercase}
+.l3d-tipo{margin:0 auto 4px;font-size:16px;max-width:none}
+.l3d-aiuto{margin:0 auto;font-size:14px;opacity:.7;max-width:none}
+.l3d-giro{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px}
+.l3d-giro button{width:48px;height:48px;border-radius:50%;border:3px solid var(--giallo);background:transparent;color:var(--giallo);cursor:pointer;display:grid;place-items:center}
+.l3d-giro button:hover{background:var(--giallo);color:var(--nero)}
+.l3d-giro svg{width:22px;height:22px}
+.l3d-punti{display:flex;gap:8px}
+.l3d-punti i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3)}
+.l3d-punti i.qui{background:var(--giallo)}
+@media (max-height:620px){.l3d-scena{height:44vh}.l3d-nome{font-size:28px}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="logo" href="#" aria-label="Big Mama, torna su"><img src="img/logo-bigmama-2026.webp" alt="Big Mama" width="840" height="528"></a>
+  <nav aria-label="Menu della pagina"><a href="#menu">Menù</a><a href="#chi-siamo">Chi siamo</a><a href="#dove-siamo">Dove siamo</a></nav>
+  <a class="btn ne" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6">Ordina su WhatsApp</a>
+</div></header>
+
+<main>
+<section class="hero su-nero pattern"><div class="wrap">
+  <div>
+    <h1 style="margin:0"><img class="titolo" src="img/zitto-e-mangia-titolo.webp" alt="Zitto e mangia!" width="1598" height="843" fetchpriority="high"></h1>
+    <p class="hero-frase"><b>Cucina a prova di nonna.</b> <span>Burger, pizze e crocchè da urlo.</span></p>
+    <span class="stelle"><i aria-hidden="true">★★★★★</i> 4,6 su 5 · 341 recensioni Google</span>
+    <div class="btns">
+      <a class="btn gi" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.4 11.4 0 0 1-4.4-3.9c-.3-.5-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Ordina su WhatsApp</a>
+      <a class="btn bi" href="tel:+390432465191">Prenota un tavolo</a>
+    </div>
+    <div class="info-riga">
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>Via Enrico Fermi 66 · Feletto Umberto</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Lun–sab · 12–14:30 e 18–22:30</span>
+    </div>
+  </div>
+  <div class="foto">
+    <img class="piatto" src="img/hero-mani-burger.webp" alt="Quattro mani tengono i burger di Big Mama su fondo nero" width="1125" height="2000">
+    <div class="nonna"><button type="button" id="nonna-btn" aria-label="Tocca la nonna: ti dice una frase e si mangia un panino"><img id="nonna-img" src="img/nonna-loop-24-fermo.webp" data-loop="img/nonna-loop-24.webp" data-mangia="img/nonna-mangia.webp" alt="" width="300" height="400"></button><span class="fumetto" id="nonna-fumetto" role="status"></span></div>
+    <div class="bollino" aria-hidden="true"><span>Phone<br>eats<br><b>last</b></span></div>
+  </div>
+</div></section>
+
+<section class="tavola pattern"><div class="wrap dueco entra">
+  <div class="cornice"><img src="img/locale-neon.webp" alt="Una tavolata che ride sotto la scritta al neon Zitto e mangia!" width="1080" height="1350" loading="lazy"></div>
+  <div>
+    <div class="pts"><span class="pt">BIG MAMA</span><span class="pt g dx">mette d'accordo tutti</span></div>
+    <h2 class="t">Qui il telefono mangia <span class="g">per ultimo.</span></h2>
+    <p>«Phone eats first»? Qui non vale.</p>
+    <p>Burger, pizze, veggie e insalatone: c'è posto per tutti.</p>
+    <div class="btns"><a class="btn bi" href="tel:+390432465191">Prenota un tavolo</a></div>
+  </div>
+</div></section>
+
+<section class="modi" aria-labelledby="t-modi"><div class="wrap entra">
+  <h2 id="t-modi" class="t su-chiaro">Come vuoi <span class="g" style="color:var(--fucsia)">mangiare?</span></h2>
+  <div class="tre">
+    <div class="modo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#FFDD00" stroke="#151515" stroke-width="3"/><path d="M15 13v10a4 4 0 0 0 4 4v9M19 13v8M23 13v10a4 4 0 0 1-4 4M31 13c-3 3-3 10 0 13v10" fill="none" stroke="#151515" stroke-width="3" stroke-linecap="round"/></svg><h3>Da noi</h3><p>Il tavolo te lo teniamo noi.</p><a href="tel:+390432465191">Chiama 0432 465191</a></div>
+    <div class="modo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#D62A7E" stroke="#151515" stroke-width="3"/><path d="M15 19h18l-2 16H17zM19 19v-3a5 5 0 0 1 10 0v3" fill="#fff" stroke="#151515" stroke-width="3" stroke-linejoin="round"/></svg><h3>Asporto</h3><p>Scrivi, passi, porti a casa.</p><a href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%20da%20asporto">Scrivi su WhatsApp</a></div>
+    <div class="modo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#151515" stroke="#151515" stroke-width="3"/><circle cx="16" cy="31" r="4" fill="#FFDD00"/><circle cx="33" cy="31" r="4" fill="#FFDD00"/><path d="M12 27h10l4-8h6l3 8M26 19h-5" fill="none" stroke="#FFDD00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>A casa tua</h3><p>Resti sul divano. Arriva caldo.</p><a href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20la%20consegna%20a%20casa">Scrivi su WhatsApp</a></div>
+  </div>
+  <p class="orari">Da lunedì a sabato · pranzo 12:00–14:30 · cena 18:00–22:30 · domenica chiusi</p>
+</div></section>
+
+<section id="menu" class="menu su-nero" aria-labelledby="t-menu"><div class="wrap entra">
+  <div class="menu-testo">
+    <div>
+      <p class="occhiello">Non avevi fame?</p>
+      <h2 id="t-menu" class="t">Scorri pure. <span class="g">Poi non dire</span> che non ti avevamo avvisato.</h2>
+      <p>Burger con Montasio DOP, pizze, crocchè fatte a mano e dolci fatti da noi. Il menù completo è nel tasto qui sotto.</p>
+      <div class="btns"><a class="btn gi" href="menu.pdf" target="_blank" rel="noopener">Sfoglia il menù</a><a class="btn bi" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6">Ordina su WhatsApp</a></div>
+    </div>
+  </div>
+  <div class="mosaico">
+    <figure><img src="img/burger-filante.webp" alt="Burger con formaggio filante" width="1120" height="924" loading="lazy"><figcaption><span class="pt g">Fame?</span></figcaption></figure>
+    <figure><img src="img/pizza-morso.webp" alt="Una ragazza addenta una pizza" width="787" height="1400" loading="lazy"><figcaption><span class="pt">Pizza, ovvio</span></figcaption></figure>
+    <figure><img src="img/crocche-ciotola.webp" alt="Crocchè di Nonna Lina nella ciotola gialla" width="787" height="840" loading="lazy"><figcaption><span class="pt f">Don't touch my crocchè</span></figcaption></figure>
+    <figure class="alta"><img src="img/pistacchioso.webp" alt="Il Pistacchioso: pan brioche, crema al pistacchio e Kinder Bueno White" width="1120" height="1400" loading="lazy"><figcaption><span class="pt g">«No, il dolce no»</span></figcaption></figure>
+    <figure><img src="img/burger-crudo.webp" alt="Burger con crudo e burrata" width="1120" height="1400" loading="lazy"><figcaption><span class="pt">Buffalo Bill</span></figcaption></figure>
+    <figure><img src="img/pizza-olio.webp" alt="Olio a filo sulla pizza appena sfornata" width="1120" height="1400" loading="lazy"><figcaption><span class="pt g">Bufala Gialla</span></figcaption></figure>
+    <figure><img src="img/pizze.webp" alt="Due pizze appena sfornate" width="1120" height="1400" loading="lazy"><figcaption><span class="pt f">Due è meglio</span></figcaption></figure>
+  </div>
+</div></section>
+
+<section class="birre su-nero" aria-labelledby="t-birre"><div class="wrap dueco entra">
+  <div class="cornice" style="border-color:var(--giallo);box-shadow:8px 8px 0 var(--fucsia)"><img src="img/birra-onesta-tavolo.webp" alt="Una ragazza brinda con la birra Onesta" width="1120" height="1400" loading="lazy"></div>
+  <div>
+    <p class="occhiello">Bionda? Possiamo fare di meglio.</p>
+    <h2 id="t-birre" class="t gino">Zitto e bevi!</h2>
+    <p>Onesta, Saggia, Severa e Premurosa. No, non sono le zie. Sono le nostre 4 birre artigianali: tu scegli il piatto, all'abbinamento pensiamo noi.</p>
+    <div class="lattine">
+      <button type="button" class="lattina" data-birra="onesta" aria-label="Onesta: guarda la lattina in 3D"><img src="img/birra-onesta.png" alt="" width="249" height="450" loading="lazy"><span>Onesta</span></button>
+      <button type="button" class="lattina" data-birra="saggia" aria-label="Saggia: guarda la lattina in 3D"><img src="img/birra-saggia.png" alt="" width="249" height="450" loading="lazy"><span>Saggia</span></button>
+      <button type="button" class="lattina" data-birra="severa" aria-label="Severa: guarda la lattina in 3D"><img src="img/birra-severa.png" alt="" width="249" height="450" loading="lazy"><span>Severa</span></button>
+      <button type="button" class="lattina" data-birra="premurosa" aria-label="Premurosa: guarda la lattina in 3D"><img src="img/birra-premurosa.png" alt="" width="249" height="450" loading="lazy"><span>Premurosa</span></button>
+    </div>
+    <p class="lattine-nota"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/></svg>Toccane una: la giri come vuoi.</p>
+  </div>
+</div></section>
+
+<section class="gift pattern" aria-labelledby="t-gift"><div class="wrap dueco entra">
+  <div class="video">
+    <video id="vid-gift" src="img/giftcard.mp4" poster="img/giftcard-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video: la gift card di Big Mama spiegata al bancone"></video>
+    <div class="comandi">
+      <button type="button" id="v-indietro" aria-label="Indietro di 5 secondi"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 6V2L5 7l6 5V8a6 6 0 1 1-6 6H3a8 8 0 1 0 8-8Z"/><text x="12.2" y="17.2" font-size="6.5" font-family="Arial" font-weight="700" text-anchor="middle" fill="currentColor">5</text></svg></button>
+      <button type="button" id="v-play" aria-label="Pausa"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="v-play-ico" fill="currentColor" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+      <button type="button" id="v-audio" aria-label="Attiva audio" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4Z"/><path id="v-audio-ico" d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+  <div>
+    <div class="pills"><span class="pill">Gift card Big Mama</span></div>
+    <h2 id="t-gift" class="t">Regala una cena <span class="g">da Big Mama.</span></h2>
+    <div class="carte">
+      <img class="fronte" src="img/giftcard-fronte.webp" alt="La gift card Big Mama, nera, con lo spazio «Del valore di»" width="1200" height="777" loading="lazy">
+    </div>
+    <p>Scegli tu l'importo e la ritiri al locale. Al resto pensa chi la riceve.</p>
+    <div class="btns"><a class="btn ne" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20una%20gift%20card">Chiedi la gift card</a></div>
+  </div>
+  <!-- CROCCHE-ORO: nascosta dalla P 17 (17/11/2026). Per rimetterla togli «hidden». -->
+  <div class="oro" hidden>
+    <img class="oro-foto" src="img/crocche-studio.webp" alt="Quattro crocchè dorate su fondo nero" width="900" height="900" loading="lazy">
+    <div class="oro-testo">
+      <img class="oro-ticket" src="img/golden-ticket.webp" alt="Il biglietto della Crocchè d'oro: quando la fortuna frigge, qualcuno vince" width="900" height="571" loading="lazy">
+      <p class="oro-titolo">Di Crocchè d'oro ce n'è <b>una sola al giorno</b>.</p>
+      <p>Se la trovi nel tuo piatto, la prossima porzione la offriamo noi. Conserva il biglietto!</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="recensioni pattern" aria-labelledby="t-rec"><div class="wrap entra">
+  <h2 id="t-rec" class="t">4,6 su 5. <span class="g">Lo dicono loro.</span></h2>
+  <div class="tre">
+    <div class="rec"><i aria-hidden="true">★★★★★</i>«L'hamburger era a dir poco fantastico, uno dei migliori che abbia mai mangiato.»<small>G. · Local Guide · Google</small></div>
+    <div class="rec"><i aria-hidden="true">★★★★★</i>«Anche le crocchette della nonna sono davvero buonissime. Hanno anche la loro birra artigianale e dei dolci freschi preparati al momento.»<small>Julieta C. · Google</small></div>
+    <div class="rec"><i aria-hidden="true">★★★★★</i>«Locale divertente e colorato, servizio gentile, sorridente e veloce.»<small>Erica · Local Guide · Google</small></div>
+  </div>
+</div></section>
+
+<section id="chi-siamo" class="chi su-nero" aria-labelledby="t-chi"><div class="wrap dueco entra">
+  <div class="cornice">
+    <img class="grande" src="img/burger-nero.webp" alt="Burger col pane nero e la bandierina Big Mama" width="1200" height="1500" loading="lazy">
+    <div class="timbro" aria-hidden="true"><img src="img/nonna2-tondo-c.webp" alt="" width="608" height="792" loading="lazy"></div>
+  </div>
+  <div>
+    <h2 id="t-chi" class="t">Come la nonna. <span class="g">Solo più Big.</span></h2>
+    <p>Andrea e Marco sono partiti con delivery e asporto. Oggi Big Mama è un locale giovane e pieno di gente. La crocchè è ancora quella segreta di Nonna Lina.</p>
+    <div class="ricetta">
+      <h3>Il ricettario di Nonna Lina</h3>
+      <p class="sotto">quello che non cambia mai</p>
+      <ol>
+        <li><span>Polpetta di manzo con Montasio DOP<small>lavorata da noi</small></span></li>
+        <li><span>Crocchè fatte a mano<small>ogni giorno, ricetta segreta</small></span></li>
+        <li><span>4 birre artigianali<small>da abbinare al tuo piatto</small></span></li>
+        <li><span>Dolci fatti da noi<small>sì, anche il Pistacchioso</small></span></li>
+      </ol>
+    </div>
+  </div>
+</div></section>
+
+<section class="faq" aria-labelledby="t-faq"><div class="wrap entra">
+  <h2 id="t-faq" class="t su-chiaro">Domande? <br class="tel"><span class="g" style="color:var(--fucsia)">Zitto e leggi.</span></h2>
+  <details><summary>C'è qualcosa per chi non mangia carne?</summary><p>Sì: burger veggie, pizze e insalatone.</p></details>
+  <details><summary>Ho un'allergia, come faccio?</summary><p>Dillo quando ordini: gli allergeni sono sul menù e ti aiutiamo a scegliere.</p></details>
+  <details><summary>Fate asporto e consegna?</summary><p>Sì, tutti e due. Scrivici su WhatsApp al 331 464 9083: ti diciamo subito tempi e consegna.</p></details>
+  <details><summary>C'è parcheggio?</summary><p>Sì, il parcheggio c'è. Arrivi, parcheggi e pensi solo a mangiare.</p></details>
+  <details><summary>Siamo un gruppo o un'azienda?</summary><p>Perfetto. Chiamaci allo 0432 465191 e organizziamo noi.</p></details>
+</div></section>
+
+<section class="insta pattern" aria-labelledby="t-ig"><div class="wrap entra">
+  <div class="insta-top">
+    <div><div class="pts"><span class="pt">@bigmamaburger_official</span></div><h2 id="t-ig" class="t">Seguici. <span class="g">Ogni settimana</span> una novità.</h2></div>
+    <a class="btn bi" href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener">Apri Instagram</a>
+  </div>
+  <div class="griglia-ig">
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post1.webp" alt="Post: Don't touch my Kikkiricrock" width="450" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post2.webp" alt="Post: Big Mama mette d'accordo tutti" width="450" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post3.webp" alt="Post: Che fame, crocchè nella ciotola gialla" width="450" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post4.webp" alt="Post: Hai mai trovato una Crocchè d'oro?" width="640" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post5.webp" alt="Post: Bionda? Possiamo fare di meglio" width="450" height="800" loading="lazy"></a>
+    <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><img src="img/ig/post6.webp" alt="Post: il nuovo panino di Halloween" width="640" height="800" loading="lazy"></a>
+  </div>
+</div></section>
+
+<section id="dove-siamo" class="chiusura su-nero" aria-labelledby="t-fine"><div class="wrap dueco entra">
+  <div>
+    <h2 id="t-fine" class="t">Basta scorrere. <span class="g">Ora si mangia.</span></h2>
+    <div class="btns"><a class="btn gi" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6">Ordina su WhatsApp</a><a class="btn bi" href="tel:+390432465191">Prenota un tavolo</a></div>
+    <ul class="dove">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg><span><b>Via Enrico Fermi 66</b><small>Feletto Umberto, Tavagnacco (UD)</small><small>Il parcheggio c'è.</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Big+Mama+Burger+Via+Enrico+Fermi+66+Feletto+Umberto" target="_blank" rel="noopener">Portami lì</a></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>Da lunedì a sabato</b><small>Pranzo 12:00–14:30 · Cena 18:00–22:30</small></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></svg><span><b>Domenica chiusi</b><small>Anche la nonna riposa.</small></span></li>
+    </ul>
+    <p style="margin:20px 0 4px;font-weight:700;color:var(--giallo)">Ci trovi anche qui</p>
+    <div class="social">
+      <a href="https://www.instagram.com/bigmamaburger_official/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>Instagram</a>
+      <a href="https://www.facebook.com/p/Big-Mama-Burger-100066794437830/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.4V14h2.7v8h3.4Z"/></svg>Facebook</a>
+      <a href="#" data-da-confermare="link TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 3c.4 2 1.7 3.4 3.9 3.6v3a7.4 7.4 0 0 1-3.9-1.2v6.4A5.8 5.8 0 1 1 10.8 9v3.1a2.8 2.8 0 1 0 2.8 2.8V3h3Z"/></svg>TikTok</a>
+    </div>
+  </div>
+  <div class="mappa"><iframe title="Mappa: Big Mama, Via Enrico Fermi 66, Feletto Umberto" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Big+Mama+Burger,+Via+Enrico+Fermi+66,+Feletto+Umberto&output=embed"></iframe></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  Food Brand di Delli Santi Andrea &amp; Tikulin Marco S.n.c. · P.IVA 03072300308 · Privacy · Cookie (iubenda)
+  <div class="avviso">Prototipo P 18 · 17/11/2026 · anteprima SocialFOX, non è ancora il sito vero</div>
+</div>
+<div class="firma">Made with love by SocialFOX <span aria-hidden="true">🦊</span></div>
+</footer>
+
+<div class="barra"><a class="btn ne" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20ordinare%E2%80%A6">Ordina</a><a class="btn bi" href="tel:+390432465191">Prenota</a></div>
+
+<div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="pop-titolo">
+  <div class="scheda">
+    <button class="chiudi" type="button" aria-label="Chiudi">✕</button>
+    <img id="pop-img" src="" alt="" width="933" height="1400">
+    <div class="corpo">
+      <span class="pill f" id="pop-etichetta"></span>
+      <h2 id="pop-titolo" class="t"></h2>
+      <p id="pop-testo"></p>
+      <a class="btn gi" id="pop-cta" href="#"></a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== EVENTO DEL MOMENTO: si cambia solo qui (attivo:false = niente pop-up) ===== */
+var EVENTO={
+  attivo:true,
+  etichetta:"EVENTO · 31 ottobre",
+  titolo:"Mama Not Mama",
+  testo:"Halloween Edition: il Vuoto Burger, cocktail da paura e musica. Prenota la cena o passa dopo per un drink.",
+  cta:"Prenota il tuo tavolo",
+  link:"tel:+390432465191",
+  foto:"img/halloween-burger.webp",
+  alt:"Il burger nero di Halloween col teschio sullo sfondo"
+};
+(function(){
+  var p=document.getElementById('popup');
+  function chiudi(){p.classList.remove('aperto');try{sessionStorage.setItem('bm-pop','1')}catch(e){}}
+  if(EVENTO.attivo){
+    document.getElementById('pop-etichetta').textContent=EVENTO.etichetta;
+    document.getElementById('pop-titolo').textContent=EVENTO.titolo;
+    document.getElementById('pop-testo').textContent=EVENTO.testo;
+    var c=document.getElementById('pop-cta');c.textContent=EVENTO.cta;c.href=EVENTO.link;
+    var im=document.getElementById('pop-img');im.src=EVENTO.foto;im.alt=EVENTO.alt;
+    var visto=false;try{visto=sessionStorage.getItem('bm-pop')==='1'}catch(e){}
+    if(!visto)setTimeout(function(){p.classList.add('aperto');p.querySelector('.chiudi').focus()},1800);
+  }
+  p.querySelector('.chiudi').onclick=chiudi;
+  p.addEventListener('click',function(e){if(e.target===p)chiudi()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&p.classList.contains('aperto'))chiudi()});
+})();
+(function(){
+  var v=document.getElementById('vid-gift');
+  var bp=document.getElementById('v-play'),ip=document.getElementById('v-play-ico'),ba=document.getElementById('v-audio'),ia=document.getElementById('v-audio-ico');
+  function stato(){ip.setAttribute('d',v.paused?'M8 5v14l11-7z':'M7 5h4v14H7zM13 5h4v14h-4z');bp.setAttribute('aria-label',v.paused?'Play':'Pausa');
+    ia.setAttribute('d',v.muted?'M16 9l5 6M21 9l-5 6':'M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12');ba.setAttribute('aria-pressed',String(!v.muted));ba.setAttribute('aria-label',v.muted?'Attiva audio':'Togli audio');}
+  bp.onclick=function(){if(v.paused)v.play();else v.pause();};
+  ba.onclick=function(){v.muted=!v.muted;if(!v.muted&&v.paused)v.play();stato();};
+  document.getElementById('v-indietro').onclick=function(){v.currentTime=Math.max(0,v.currentTime-5);if(v.paused)v.play();};
+  v.addEventListener('play',stato);v.addEventListener('pause',stato);v.addEventListener('volumechange',stato);
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause();}
+  stato();
+})();
+(function(){
+  var els=document.querySelectorAll('.entra');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vista')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vista');io.unobserve(e.target);}})},{threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+<script>
+/* P 12: la nuvoletta resta sulla voce della sezione che stai guardando */
+(function(){
+  var voci=[].slice.call(document.querySelectorAll('header nav a[href^="#"]'));
+  var sez=voci.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  if(!voci.length||sez.indexOf(null)>-1)return;
+  function agg(){
+    var y=window.innerHeight*0.4,quale=-1;
+    sez.forEach(function(s,i){var r=s.getBoundingClientRect();if(r.top<=y&&r.bottom>y)quale=i;});
+    voci.forEach(function(a,i){a.classList.toggle('qui',i===quale);});
+  }
+  var t;window.addEventListener('scroll',function(){if(t)return;t=setTimeout(function(){t=0;agg();},80);},{passive:true});
+  agg();
+})();
+</script>
+<script>
+/* P 18: la nonna si muove sempre (loop di 10 s, 24 fotogrammi al secondo). Se la tocchi dice una frase e si mangia un panino in un boccone.
+   Le animazioni si caricano dopo il resto della pagina, per non rallentarla. Le frasi si cambiano qui. */
+(function(){
+  var FRASI=["Zitto e mangia!","Fame?","Don't touch my crocchè!","Phone eats last.","Zitto e bevi!","«No, il dolce no»"];
+  var DURATA_MANGIA=5950;
+  var im=document.getElementById('nonna-img'),b=document.getElementById('nonna-btn'),f=document.getElementById('nonna-fumetto');
+  if(!im||!b||!f)return;
+  var fermo=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var loop=im.getAttribute('data-loop'),mangia=im.getAttribute('data-mangia');
+  var loopPronto=false,mangiaPronto=false,staMangiando=false,i=0,t,tm,giro=0;
+  function carica(){
+    var l=new Image();
+    l.onload=function(){loopPronto=true;if(!staMangiando)im.src=loop;
+      var m=new Image();m.onload=function(){mangiaPronto=true};m.src=mangia;};
+    l.src=loop;
+  }
+  if(!fermo){if(document.readyState==='complete')carica();else window.addEventListener('load',carica);}
+  b.addEventListener('click',function(){
+    f.textContent=FRASI[i%FRASI.length];i++;
+    f.classList.add('su');clearTimeout(t);t=setTimeout(function(){f.classList.remove('su')},3200);
+    if(!fermo&&mangiaPronto){
+      if(staMangiando)return;
+      staMangiando=true;giro++;
+      /* l'indirizzo cambia a ogni tocco: così l'animazione riparte sempre dall'inizio */
+      im.src=mangia+'#'+giro;
+      clearTimeout(tm);tm=setTimeout(function(){staMangiando=false;im.src=loop+'#'+giro;},DURATA_MANGIA);
+    }else{
+      b.classList.remove('salta');void b.offsetWidth;b.classList.add('salta');
+    }
+  });
+  b.addEventListener('animationend',function(){b.classList.remove('salta')});
+})();
+</script>
+
+<div class="l3d" id="l3d" role="dialog" aria-modal="true" aria-labelledby="l3d-nome">
+  <div class="l3d-scheda">
+    <button class="l3d-chiudi" type="button" aria-label="Chiudi">✕</button>
+    <div class="l3d-scena" id="l3d-scena"></div>
+    <h2 class="l3d-nome" id="l3d-nome"></h2>
+    <p class="l3d-tipo" id="l3d-tipo"></p>
+    <p class="l3d-aiuto" id="l3d-aiuto">Trascina per girarla</p>
+    <div class="l3d-giro">
+      <button type="button" id="l3d-prima" aria-label="Birra precedente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <span class="l3d-punti" id="l3d-punti" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <button type="button" id="l3d-dopo" aria-label="Birra successiva"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== P 17: le lattine in 3D =====
+   L'etichetta è quella vera di stampa (Drive grafiche, BIRRE (pulite)/SINGOLE), avvolta su una lattina disegnata in WebGL.
+   Nessuna libreria esterna. Le etichette si caricano solo quando tocchi una lattina.
+   Dati (tipo e gradi) letti dalle etichette: si cambiano qui. */
+(function(){
+  var BIRRE=[
+    {id:"onesta",   nome:"Onesta",   tipo:"Bionda artigianale · 4,5% vol. · 33 cl", alone:"#FFDD00"},
+    {id:"saggia",   nome:"Saggia",   tipo:"IPA artigianale · 6,5% vol. · 33 cl",    alone:"#D62A7E"},
+    {id:"severa",   nome:"Severa",   tipo:"Rossa artigianale · 7,0% vol. · 33 cl · senza glutine", alone:"#FFFFFF"},
+    {id:"premurosa",nome:"Premurosa",tipo:"Bianca artigianale · 5,1% vol. · 33 cl · senza glutine", alone:"#FFFFFF"}
+  ];
+  var box=document.getElementById('l3d'),scena=document.getElementById('l3d-scena');
+  var tasti=[].slice.call(document.querySelectorAll('button.lattina'));
+  if(!box||!scena||!tasti.length)return;
+  var fermo=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var quale=0,aperto=false,daDove=null;
+  var gl,canvas,prog,loc={},nIdx=0,tex={},raf=0;
+  var rotY=0,rotX=0.3,velY=0,presa=false,ultimoX=0,ultimoY=0,ultimoTocco=0,tPrima=0;
+
+  /* --- forma della lattina: profilo (raggio, altezza) fatto girare attorno all'asse --- */
+  var H=2.16; /* metà altezza dell'etichetta: l'etichetta è 2400x1653, quindi altezza = circonferenza / 1,452 */
+  function geometria(){
+    var N=96,pos=[],nor=[],uv=[],mat=[],idx=[];
+    /* ogni pezzo: lista di punti [r,y], materiale (0 etichetta, 1 alluminio) */
+    /* materiali: 0 etichetta (sopra e sotto continua il colore del bordo dell'etichetta, come nelle lattine stampate), 1 alluminio, 2 coperchio */
+    var pezzi=[
+      {m:1,p:[[0,-H-.13],[.30,-H-.15],[.52,-H-.22],[.63,-H-.32],[.69,-H-.375],[.75,-H-.38]]},
+      {m:0,p:[[.75,-H-.38],[.82,-H-.33],[.90,-H-.22],[.96,-H-.10],[.99,-H-.03],[1,-H]]},
+      {m:0,p:[[1,-H],[1,H]]},
+      {m:0,p:[[1,H],[.995,H+.05],[.975,H+.15],[.94,H+.27],[.90,H+.38],[.872,H+.455]]},
+      {m:1,p:[[.872,H+.455],[.862,H+.49],[.872,H+.525],[.884,H+.555],[.878,H+.585],[.852,H+.60],[.822,H+.592],[.806,H+.56],[.798,H+.50],[.79,H+.47]]},
+      {m:2,p:[[.79,H+.47],[.74,H+.452],[.70,H+.455],[0,H+.455]]}
+    ];
+    pezzi.forEach(function(pz){
+      var p=pz.p,base=pos.length/3,k,i;
+      for(k=0;k<p.length;k++){
+        /* normale del profilo: media dei due tratti vicini */
+        var a=p[Math.max(k-1,0)],b=p[Math.min(k+1,p.length-1)];
+        var dr=b[0]-a[0],dy=b[1]-a[1],l=Math.sqrt(dr*dr+dy*dy)||1,nr=dy/l,ny=-dr/l;
+        for(i=0;i<=N;i++){
+          var t=i/N,th=(t-.5)*2*Math.PI,sn=Math.sin(th),cs=Math.cos(th);
+          pos.push(p[k][0]*sn,p[k][1],p[k][0]*cs);
+          nor.push(nr*sn,ny,nr*cs);
+          uv.push(t,(H-p[k][1])/(2*H));
+          mat.push(pz.m);
+        }
+      }
+      for(k=0;k<p.length-1;k++)for(i=0;i<N;i++){
+        var q=base+k*(N+1)+i,r=q+N+1;
+        idx.push(q,q+1,r,q+1,r+1,r);
+      }
+    });
+    return {pos:new Float32Array(pos),nor:new Float32Array(nor),uv:new Float32Array(uv),mat:new Float32Array(mat),idx:new Uint16Array(idx)};
+  }
+
+  var VS='attribute vec3 aP;attribute vec3 aN;attribute vec2 aU;attribute float aM;uniform mat4 uPV;uniform mat4 uM;varying vec3 vN;varying vec2 vU;varying float vM;varying vec3 vW;varying vec3 vO;'+
+    'void main(){vec4 w=uM*vec4(aP,1.);vW=w.xyz;vO=aP;vN=mat3(uM)*aN;vU=aU;vM=aM;gl_Position=uPV*w;}';
+  /* luce da studio fotografico: due pannelli morbidi ai lati, soffitto chiaro, pavimento scuro. I colori dell'etichetta restano quelli di stampa. */
+  var FS='precision highp float;uniform sampler2D uT;uniform float uPronta;uniform vec3 uCam;varying vec3 vN;varying vec2 vU;varying float vM;varying vec3 vW;varying vec3 vO;'+
+    'float studio(vec3 r){float a=atan(r.x,r.z);float su=smoothstep(-.45,.15,r.y);'+
+      'float p1=smoothstep(.62,.18,abs(a+1.0))*su;float p2=smoothstep(.34,.08,abs(a-1.2))*su;float p3=smoothstep(.5,.0,abs(a-3.0))*su*.5;'+
+      'return .07+smoothstep(-.2,1.,r.y)*.42+p1*1.05+p2*.75+p3;}'+
+    'void main(){vec3 N=normalize(vN);vec3 V=normalize(uCam-vW);vec3 R=reflect(-V,N);float nv=max(dot(N,V),0.);float fr=pow(1.-nv,5.);'+
+    'vec3 L=normalize(vec3(-.45,.6,.66));float hl=.5+.5*dot(N,L);float e=studio(R);vec3 c;'+
+    'if(vM<.5){vec3 t=mix(vec3(.2),texture2D(uT,vec2(vU.x,clamp(vU.y,.004,.996))).rgb,uPronta);'+
+      /* inchiostro: colore pieno davanti, un po\' più scuro ai lati; sopra, il lucido della vernice */
+      'c=t*(.74+.31*hl)*mix(1.,.80,pow(1.-nv,2.5));c+=vec3(1.)*e*(.075+.5*fr);c+=vec3(1.)*pow(max(dot(N,normalize(L+V)),0.),60.)*.10;}'+
+    'else if(vM<1.5){c=vec3(.83,.85,.88)*(.16+e*.92);c+=vec3(1.)*fr*.25;}'+
+    'else{float r=length(vO.xz);vec2 q=vO.xz;'+
+      /* coperchio: alluminio spazzolato, scanalatura, linguetta e apertura disegnate */
+      'float sp=.5+.5*sin(r*150.);float base=.60+.16*hl+sp*.03;'+
+      'base-=smoothstep(.035,.0,abs(r-.60))*.16;'+
+      'float ap=length((q-vec2(0.,.30))/vec2(.21,.16));base-=smoothstep(.10,.0,abs(ap-1.))*.20;'+
+      'float li=length((q-vec2(0.,-.10))/vec2(.17,.27));base=mix(base,.90,smoothstep(1.04,.96,li));'+
+      'float fo=length((q-vec2(0.,-.24))/vec2(.085,.075));base=mix(base,.34,smoothstep(1.06,.94,fo));'+
+      'base-=smoothstep(.03,.0,abs(li-1.))*.14;'+
+      'c=vec3(.84,.86,.89)*base;}'+
+    'gl_FragColor=vec4(clamp(c,0.,1.),1.);}';
+
+  function avviaGL(){
+    canvas=document.createElement('canvas');
+    try{gl=canvas.getContext('webgl',{alpha:true,antialias:true,premultipliedAlpha:true})||canvas.getContext('experimental-webgl');}catch(e){gl=null;}
+    if(!gl)return false;
+    function sh(tipo,src){var o=gl.createShader(tipo);gl.shaderSource(o,src);gl.compileShader(o);return gl.getShaderParameter(o,gl.COMPILE_STATUS)?o:null;}
+    var v=sh(gl.VERTEX_SHADER,VS),f=sh(gl.FRAGMENT_SHADER,FS);
+    if(!v||!f){gl=null;return false;}
+    prog=gl.createProgram();gl.attachShader(prog,v);gl.attachShader(prog,f);gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){gl=null;return false;}
+    gl.useProgram(prog);
+    var g=geometria();nIdx=g.idx.length;
+    function buf(nome,dati,n){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,dati,gl.STATIC_DRAW);var l=gl.getAttribLocation(prog,nome);gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,n,gl.FLOAT,false,0,0);}
+    buf('aP',g.pos,3);buf('aN',g.nor,3);buf('aU',g.uv,2);buf('aM',g.mat,1);
+    var ib=gl.createBuffer();gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,ib);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,g.idx,gl.STATIC_DRAW);
+    ['uPV','uM','uT','uPronta','uCam'].forEach(function(n){loc[n]=gl.getUniformLocation(prog,n);});
+    gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);gl.clearColor(0,0,0,0);
+    canvas.addEventListener('webglcontextlost',function(e){e.preventDefault();cancelAnimationFrame(raf);raf=0;});
+    return true;
+  }
+  function etichetta(b){
+    if(tex[b.id])return tex[b.id];
+    var t={t:gl.createTexture(),pronta:false};tex[b.id]=t;
+    var im=new Image();
+    im.onload=function(){
+      gl.bindTexture(gl.TEXTURE_2D,t.t);
+      gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im);
+      gl.generateMipmap(gl.TEXTURE_2D);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+      var an=gl.getExtension('EXT_texture_filter_anisotropic')||gl.getExtension('WEBKIT_EXT_texture_filter_anisotropic');
+      if(an)gl.texParameterf(gl.TEXTURE_2D,an.TEXTURE_MAX_ANISOTROPY_EXT,Math.min(8,gl.getParameter(an.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+      t.pronta=true;
+    };
+    im.src='img/lattine/'+b.id+'-etichetta.webp';
+    return t;
+  }
+  function misura(){
+    var r=scena.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);
+    var w=Math.max(1,Math.round(r.width*d)),h=Math.max(1,Math.round(r.height*d));
+    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
+    gl.viewport(0,0,w,h);return w/h;
+  }
+  function disegna(ora){
+    raf=0;if(!aperto||!gl)return;
+    var dt=Math.min(.05,(ora-(tPrima||ora))/1000);tPrima=ora;
+    if(!presa){
+      if(Math.abs(velY)>.02){rotY+=velY*dt;velY*=Math.pow(.05,dt);}
+      else if(!fermo&&ora-ultimoTocco>1800){rotY+=.55*dt;rotX+=(.3-rotX)*Math.min(1,dt*2);}
+    }
+    var asp=misura(),fov=28*Math.PI/180,f=1/Math.tan(fov/2),vic=1,lon=60;
+    /* distanza: la lattina (alta circa 5,3) deve stare tutta nel riquadro, anche se è stretto */
+    var dist=Math.max(3.1/Math.tan(fov/2),1.4/(Math.tan(fov/2)*asp))+1.1;
+    var P=[f/asp,0,0,0, 0,f,0,0, 0,0,(lon+vic)/(vic-lon),-1, 0,0,-dist*(lon+vic)/(vic-lon)+2*lon*vic/(vic-lon),dist];
+    /* P include già lo spostamento della camera lungo z (vista = traslazione di -dist) */
+    var cy=Math.cos(rotY),sy=Math.sin(rotY),cx=Math.cos(rotX),sx=Math.sin(rotX);
+    var M=[cy,sx*sy,-cx*sy,0, 0,cx,sx,0, sy,-sx*cy,cx*cy,0, 0,-.11,0,1];
+    var t=tex[BIRRE[quale].id];
+    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+    gl.uniformMatrix4fv(loc.uPV,false,new Float32Array(P));
+    gl.uniformMatrix4fv(loc.uM,false,new Float32Array(M));
+    gl.uniform3f(loc.uCam,0,0,dist);
+    gl.uniform1f(loc.uPronta,t&&t.pronta?1:0);
+    gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,t&&t.pronta?t.t:null);gl.uniform1i(loc.uT,0);
+    gl.drawElements(gl.TRIANGLES,nIdx,gl.UNSIGNED_SHORT,0);
+    raf=requestAnimationFrame(disegna);
+  }
+  function mostra(i){
+    quale=(i+BIRRE.length)%BIRRE.length;var b=BIRRE[quale];
+    document.getElementById('l3d-nome').textContent=b.nome;
+    document.getElementById('l3d-tipo').textContent=b.tipo;
+    scena.style.setProperty('--alone',b.alone);
+    [].forEach.call(document.getElementById('l3d-punti').children,function(p,k){p.classList.toggle('qui',k===quale);});
+    rotY=-.5;rotX=.3;velY=0;ultimoTocco=0;
+    if(gl){etichetta(b);
+      /* prepara anche le altre, così il cambio è immediato */
+      setTimeout(function(){if(aperto)BIRRE.forEach(etichetta);},600);
+    }else{
+      scena.innerHTML='';var im=document.createElement('img');im.src='img/birra-'+b.id+'.png';im.alt='Lattina '+b.nome;scena.appendChild(im);
+      document.getElementById('l3d-aiuto').textContent='';
+    }
+  }
+  function apri(i,da){
+    daDove=da||null;aperto=true;box.classList.add('aperto');document.documentElement.style.overflow='hidden';
+    if(gl===undefined){if(avviaGL())scena.appendChild(canvas);else gl=null;}
+    mostra(i);box.querySelector('.l3d-chiudi').focus();
+    if(gl&&!raf){tPrima=0;raf=requestAnimationFrame(disegna);}
+  }
+  function chiudi(){
+    aperto=false;box.classList.remove('aperto');document.documentElement.style.overflow='';
+    if(raf){cancelAnimationFrame(raf);raf=0;}
+    if(daDove)daDove.focus();
+  }
+  tasti.forEach(function(b){b.addEventListener('click',function(){
+    var id=b.getAttribute('data-birra'),i=0;BIRRE.forEach(function(x,k){if(x.id===id)i=k;});apri(i,b);
+  });});
+  box.querySelector('.l3d-chiudi').onclick=chiudi;
+  box.addEventListener('click',function(e){if(e.target===box)chiudi();});
+  document.getElementById('l3d-prima').onclick=function(){mostra(quale-1);};
+  document.getElementById('l3d-dopo').onclick=function(){mostra(quale+1);};
+  document.addEventListener('keydown',function(e){
+    if(!aperto)return;
+    if(e.key==='Escape')chiudi();
+    else if(e.key==='ArrowLeft'){rotY-=.35;ultimoTocco=performance.now();}
+    else if(e.key==='ArrowRight'){rotY+=.35;ultimoTocco=performance.now();}
+    else if(e.key==='Tab'){
+      /* il fuoco resta dentro la finestra */
+      var f=box.querySelectorAll('button'),pr=f[0],ul=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===pr){e.preventDefault();ul.focus();}
+      else if(!e.shiftKey&&document.activeElement===ul){e.preventDefault();pr.focus();}
+    }
+  });
+  /* trascinamento: dito o mouse */
+  scena.addEventListener('pointerdown',function(e){presa=true;ultimoX=e.clientX;ultimoY=e.clientY;velY=0;scena.classList.add('presa');try{scena.setPointerCapture(e.pointerId);}catch(x){}});
+  scena.addEventListener('pointermove',function(e){
+    if(!presa)return;var dx=e.clientX-ultimoX,dy=e.clientY-ultimoY;ultimoX=e.clientX;ultimoY=e.clientY;
+    rotY+=dx*.012;velY=dx*.012*60;rotX=Math.max(-.5,Math.min(.75,rotX+dy*.006));ultimoTocco=performance.now();
+  });
+  function lascia(){if(!presa)return;presa=false;scena.classList.remove('presa');ultimoTocco=performance.now();}
+  scena.addEventListener('pointerup',lascia);scena.addEventListener('pointercancel',lascia);
+})();
+</script>
+</body>
+</html>
