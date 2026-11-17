@@ -435,36 +435,18 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 .gift .nonna-gift .tocca svg{width:19px;height:19px}
 @keyframes tocca{0%,100%{transform:translateY(0) rotate(6deg)}50%{transform:translateY(-6px) rotate(6deg)}}
 @media (prefers-reduced-motion:reduce){.tocca{animation:none}}
-/* ===== P 21: la gift card che si compila ===== */
-.gc-campi{display:grid;grid-template-columns:1.35fr 1fr;gap:10px;margin:0 0 16px;max-width:360px}
-.gc-campi label{display:block;position:relative}
-.gc-campi span{display:block;font-size:13px;font-weight:700;margin:0 0 4px 12px}
-.gc-campi input{width:100%;height:46px;padding:0 16px;border:3px solid var(--nero);border-radius:999px;background:#fff;color:var(--nero);font:700 16px var(--testi);box-shadow:3px 3px 0 var(--nero)}
-.gc-campi input::placeholder{color:#9a9a9a;font-weight:600}
-.gc-campi input:focus{outline:3px solid var(--fucsia);outline-offset:2px}
-.gc-campi .euro input{padding-right:34px}
-.gc-campi .euro i{position:absolute;right:16px;bottom:12px;font:700 17px var(--testi);font-style:normal}
-/* retro del riquadro: la carta vera, con quello che scrivi nel riquadro bianco */
-.gift .carte .retro{position:absolute;inset:-3px;z-index:4;border-radius:26px;border:3px solid var(--nero);background:var(--fucsia);overflow:hidden;display:grid;place-items:center;opacity:0;transform:rotateY(90deg);transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .2s ease;pointer-events:none}
+/* ===== P 21 ===== */
+/* retro del riquadro: la carta vera su fondo fucsia a raggi. Compare da sola quando la nonna ha finito la scena; se la tocchi torna la nonna */
+.gift .carte .retro{position:absolute;inset:-3px;z-index:4;border-radius:26px;border:3px solid var(--nero);background:var(--fucsia);overflow:hidden;display:grid;place-items:center;opacity:0;transform:rotateY(90deg);transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .2s ease;pointer-events:none;padding:0;font:inherit;color:inherit;cursor:pointer;width:calc(100% + 6px);height:calc(100% + 6px)}
 .gift .carte .retro::before{content:"";position:absolute;left:50%;top:50%;width:200%;aspect-ratio:1;margin:-100% 0 0 -100%;background:repeating-conic-gradient(#E4509A 0 9deg,transparent 9deg 18deg)}
-.gift .carte.compila .retro{opacity:1;transform:none}
+.gift .carte.compila .retro{opacity:1;transform:none;pointer-events:auto}
 .gift .carte.compila .nonna-gift{opacity:0}
 .gift .carte .nonna-gift{transition:opacity .2s ease}
-.carta-vera{position:relative;width:88%;transform:rotate(-5deg);container-type:inline-size}
+.carta-vera{position:relative;display:block;width:88%;transform:rotate(-5deg)}
 .gift .carte .carta-vera img{display:block;width:100%;height:auto;border-radius:6%/9%;border:3px solid var(--nero);box-shadow:0 10px 20px rgba(0,0,0,.35);transform:none}
-.carta-vera .scritta{position:absolute;left:23%;width:54%;top:45.5%;height:15%;display:grid;place-items:center;text-align:center;color:var(--nero);font:700 13px/1 var(--testi);font-size:6.4cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* coriandoli nei colori del brand quando la nonna tira fuori la carta */
 .coriandolo{position:absolute;left:50%;top:46%;width:9px;height:14px;border-radius:2px;z-index:5;pointer-events:none;animation:coriandolo 1.5s cubic-bezier(.15,.6,.3,1) forwards}
 @keyframes coriandolo{0%{transform:translate(-50%,-50%) rotate(0);opacity:1}70%{opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(var(--r));opacity:0}}
-@media (min-width:860px){
-  .gift .dueco > div:not(.video):not(.oro) > .passi{grid-row:3;align-self:start;margin:40px 0 0;top:0;font-size:16px;gap:7px}
-  .gift .dueco > div:not(.video):not(.oro) > .passi b{width:30px;height:30px;font-size:15px}
-  .gift .dueco > div:not(.video):not(.oro) > .gc-campi{grid-column:2;grid-row:4;align-self:start;margin:14px 0 0;max-width:none}
-  .gift .dueco > div:not(.video):not(.oro) > .btns{grid-column:2;grid-row:5;top:0;margin:14px 0 0}
-  .gift .carte{grid-row:3/6;align-self:start}
-  .gc-campi input{height:42px}
-  .gc-campi .euro i{bottom:10px}
-}
 </style>
 </head>
 <body>
@@ -569,15 +551,11 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
     <div class="carte">
       <!-- GIFT-CARD-FERMA: tolta dalla P 20 (17/11/2026), la carta la fa vedere la nonna. Per rimetterla togli «hidden». -->
       <img class="fronte" src="img/giftcard-fronte.webp" alt="" width="1200" height="777" loading="lazy" hidden>
-      <div class="retro" aria-hidden="true"><div class="carta-vera"><img src="img/giftcard-fronte.webp" alt="" width="1200" height="777" loading="lazy"><span class="scritta" id="gc-scritta"></span></div></div>
+      <button type="button" class="retro" id="gc-retro" aria-label="La gift card Big Mama. Tocca per tornare alla nonna" tabindex="-1"><span class="carta-vera"><img src="img/giftcard-fronte.webp" alt="" width="1200" height="777" loading="lazy"></span></button>
       <div class="nonna nonna-gift"><button type="button" id="nonna3-btn" aria-label="Tocca la nonna: scarta un regalo e trova la gift card"><img id="nonna3-img" src="img/nonna-ferma-hd.webp" alt="" width="1120" height="1494" loading="lazy"></button><span class="fumetto" id="nonna3-fumetto" role="status"></span><span class="tocca" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 11V5a1.6 1.6 0 0 1 3.2 0v5.2l4.3.9a2.4 2.4 0 0 1 1.9 2.7l-.6 4a3 3 0 0 1-3 2.6h-3.2a3 3 0 0 1-2.3-1.1L6 15.2a1.5 1.5 0 0 1 2.2-2l.8.8"/></svg>Toccami</span></div>
     </div>
     <ol class="passi"><li><b>1</b>Scegli tu l'importo</li><li><b>2</b>La ritiri al locale</li><li><b>3</b>Al resto pensa chi la riceve</li></ol>
-    <div class="gc-campi">
-      <label><span>Per chi è?</span><input id="gc-nome" type="text" maxlength="18" autocomplete="off" placeholder="Marta"></label>
-      <label class="euro"><span>Di quanto?</span><input id="gc-importo" type="text" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="50"><i aria-hidden="true">€</i></label>
-    </div>
-    <div class="btns"><a class="btn ne" id="gc-tasto" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20una%20gift%20card">Chiedi la gift card</a></div>
+    <div class="btns"><a class="btn ne" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20una%20gift%20card">Chiedi la gift card</a></div>
   </div>
   <!-- CROCCHE-ORO: nascosta dalla P 17 (17/11/2026). Per rimetterla togli «hidden». -->
   <div class="oro" hidden>
@@ -756,7 +734,7 @@ var EVENTO={
   var DURATA=5950;
   var PANINO={frase:"Zitto e mangia!",src:"img/nonna-mangia-g.webp"},BIRRA={frase:"Zitto e bevi!",src:"img/nonna-beve-g.webp"},
       TELEFONO={frase:"Phone eats last.",src:"img/nonna-telefono-g.webp"},DOLCE={frase:"«No, il dolce no»",src:"img/nonna-dolce-g.webp"},
-      REGALO={frase:"Regala una cena!",src:"img/nonna-gift-hd.webp",festa:2300};
+      REGALO={frase:"Regala una cena!",src:"img/nonna-gift-hd.webp",festa:2300,gira:true};
   var fermo=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* coriandoli gialli, fucsia, neri e bianchi che partono dal centro del riquadro */
   function coriandoli(dove){
@@ -797,7 +775,7 @@ var EVENTO={
         inCorso=true;giro++;quale++;
         im.src=sc.src+'#'+giro; /* l'indirizzo cambia a ogni tocco: così la scena riparte dall'inizio */
         if(sc.festa)setTimeout(function(){coriandoli(b.parentNode.parentNode)},sc.festa);
-        clearTimeout(tm);tm=setTimeout(function(){inCorso=false;im.src=ferma;},DURATA);
+        clearTimeout(tm);tm=setTimeout(function(){inCorso=false;im.src=ferma;if(sc.gira)b.parentNode.parentNode.classList.add('compila');},DURATA);
       }else{
         if(fermo)quale++;
         b.classList.remove('salta');void b.offsetWidth;b.classList.add('salta');
@@ -1030,24 +1008,11 @@ var EVENTO={
 })();
 </script>
 <script>
-/* P 21: la gift card che si compila. Scrivi per chi è e di quanto: compaiono sulla carta vera
-   e il tasto apre WhatsApp con il messaggio già pronto. Gli importi li sceglie chi scrive: qui non ci sono tagli fissi. */
+/* P 21: quando la nonna ha finito la scena, il riquadro si gira e resta la gift card vera. Se la tocchi torna la nonna. */
 (function(){
-  var nome=document.getElementById('gc-nome'),imp=document.getElementById('gc-importo'),tasto=document.getElementById('gc-tasto'),
-      scritta=document.getElementById('gc-scritta'),carte=document.querySelector('.gift .carte');
-  if(!nome||!imp||!tasto||!scritta||!carte)return;
-  var BASE='https://wa.me/393314649083?text=';
-  function agg(){
-    imp.value=imp.value.replace(/[^0-9]/g,'').slice(0,4);
-    var n=nome.value.replace(/\s+/g,' ').trim(),e=imp.value.replace(/^0+/,'');
-    var testo='Ciao Big Mama! Vorrei una gift card'+(e?' da '+e+' €':'')+(n?' per '+n:'');
-    tasto.href=BASE+encodeURIComponent(testo);
-    scritta.textContent=(e?e+' €':'')+(e&&n?' · ':'')+(n?'per '+n:'');
-    var pieno=!!(e||n),dentro=document.activeElement===nome||document.activeElement===imp;
-    carte.classList.toggle('compila',pieno||dentro);
-  }
-  [nome,imp].forEach(function(c){c.addEventListener('input',agg);c.addEventListener('focus',agg);c.addEventListener('blur',function(){setTimeout(agg,0)});});
-  agg();
+  var retro=document.getElementById('gc-retro'),carte=document.querySelector('.gift .carte');
+  if(!retro||!carte)return;
+  retro.addEventListener('click',function(){carte.classList.remove('compila');});
 })();
 </script>
 </body>
