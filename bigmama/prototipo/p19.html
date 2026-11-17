@@ -426,7 +426,7 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
   </div>
   <div class="foto">
     <img class="piatto" src="img/hero-mani-burger.webp" alt="Quattro mani tengono i burger di Big Mama su fondo nero" width="1125" height="2000">
-    <div class="nonna"><button type="button" id="nonna-btn" aria-label="Tocca la nonna: ti dice una frase e si mangia un panino"><img id="nonna-img" src="img/nonna-ferma-g.webp" data-mangia="img/nonna-mangia-g.webp" alt="" width="560" height="747"></button><span class="fumetto" id="nonna-fumetto" role="status"></span></div>
+    <div class="nonna"><button type="button" id="nonna-btn" aria-label="Tocca la nonna: prima si mangia un panino, poi si beve una birra"><img id="nonna-img" src="img/nonna-ferma-g.webp" data-mangia="img/nonna-mangia-g.webp" alt="" width="560" height="747"></button><span class="fumetto" id="nonna-fumetto" role="status"></span></div>
     <div class="bollino" aria-hidden="true"><span>Phone<br>eats<br><b>last</b></span></div>
   </div>
 </div></section>
@@ -473,7 +473,7 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 </div></section>
 
 <section class="birre su-nero" aria-labelledby="t-birre"><div class="wrap dueco entra">
-  <div class="cornice" style="border-color:var(--giallo);box-shadow:8px 8px 0 var(--fucsia)"><img src="img/birra-onesta-tavolo.webp" alt="Una ragazza brinda con la birra Onesta" width="1120" height="1400" loading="lazy"><div class="nonna nonna-beve"><button type="button" id="nonna2-btn" aria-label="Tocca la nonna: dice «Zitto e bevi!» e si beve una Onesta"><img id="nonna2-img" src="img/nonna-ferma-g.webp" data-anima="img/nonna-beve-g.webp" alt="" width="560" height="747" loading="lazy"></button><span class="fumetto" id="nonna2-fumetto" role="status"></span></div></div>
+  <div class="cornice" style="border-color:var(--giallo);box-shadow:8px 8px 0 var(--fucsia)"><img src="img/birra-onesta-tavolo.webp" alt="Una ragazza brinda con la birra Onesta" width="1120" height="1400" loading="lazy"><div class="nonna nonna-beve"><button type="button" id="nonna2-btn" aria-label="Tocca la nonna: prima si beve una Onesta, poi si mangia un panino"><img id="nonna2-img" src="img/nonna-ferma-g.webp" data-anima="img/nonna-beve-g.webp" alt="" width="560" height="747" loading="lazy"></button><span class="fumetto" id="nonna2-fumetto" role="status"></span></div></div>
   <div>
     <p class="occhiello">Bionda? Possiamo fare di meglio.</p>
     <h2 id="t-birre" class="t gino">Zitto e bevi!</h2>
@@ -676,32 +676,43 @@ var EVENTO={
 })();
 </script>
 <script>
-/* P 18: la nonna sta ferma. Se la tocchi dice «Zitto e mangia!» e si mangia un panino in un boccone, poi torna ferma.
-   L'animazione si carica dopo il resto della pagina, per non rallentarla. La frase si cambia qui. */
+/* P 19: le nonne stanno ferme. A ogni tocco fanno la scena dopo: quella dell'apertura parte dal panino («Zitto e mangia!»)
+   e al secondo tocco beve la Onesta («Zitto e bevi!»); quella delle birre fa il contrario. Poi tornano ferme.
+   Le scene si caricano dopo il resto della pagina. Frasi e ordine si cambiano qui sotto. */
 (function(){
-  var FRASE="Zitto e mangia!";
-  var DURATA_MANGIA=5950;
-  var im=document.getElementById('nonna-img'),b=document.getElementById('nonna-btn'),f=document.getElementById('nonna-fumetto');
-  if(!im||!b||!f)return;
+  var DURATA=5950;
+  var PANINO={frase:"Zitto e mangia!",src:"img/nonna-mangia-g.webp"},BIRRA={frase:"Zitto e bevi!",src:"img/nonna-beve-g.webp"};
   var fermo=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ferma=im.getAttribute('src'),mangia=im.getAttribute('data-mangia');
-  var mangiaPronto=false,staMangiando=false,t,tm,giro=0;
-  function carica(){var m=new Image();m.onload=function(){mangiaPronto=true};m.src=mangia;}
-  if(!fermo){if(document.readyState==='complete')carica();else window.addEventListener('load',carica);}
-  b.addEventListener('click',function(){
-    f.textContent=FRASE;
-    f.classList.add('su');clearTimeout(t);t=setTimeout(function(){f.classList.remove('su')},fermo||!mangiaPronto?2600:DURATA_MANGIA);
-    if(!fermo&&mangiaPronto){
-      if(staMangiando)return;
-      staMangiando=true;giro++;
-      /* l'indirizzo cambia a ogni tocco: così l'animazione riparte sempre dall'inizio */
-      im.src=mangia+'#'+giro;
-      clearTimeout(tm);tm=setTimeout(function(){staMangiando=false;im.src=ferma;},DURATA_MANGIA);
-    }else{
-      b.classList.remove('salta');void b.offsetWidth;b.classList.add('salta');
-    }
-  });
-  b.addEventListener('animationend',function(){b.classList.remove('salta')});
+  function nonna(idImg,idBtn,idFum,scene,subito){
+    var im=document.getElementById(idImg),b=document.getElementById(idBtn),f=document.getElementById(idFum);
+    if(!im||!b||!f)return;
+    var ferma=im.getAttribute('src'),pronte={},chieste={},inCorso=false,quale=0,giro=0,t,tm;
+    function carica(k){if(fermo||chieste[k])return;chieste[k]=true;var m=new Image();m.onload=function(){pronte[k]=true};m.src=scene[k].src;}
+    if(subito){if(document.readyState==='complete')carica(0);else window.addEventListener('load',function(){carica(0)});}
+    else if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){carica(0);io.disconnect();}})},{rootMargin:'600px'});
+      io.observe(b);
+    }else{window.addEventListener('load',function(){carica(0)});}
+    b.addEventListener('click',function(){
+      if(inCorso)return;
+      var k=quale%scene.length,sc=scene[k];
+      carica(k);carica((k+1)%scene.length); /* prepara anche la scena dopo */
+      f.textContent=sc.frase;
+      var vera=!fermo&&pronte[k];
+      f.classList.add('su');clearTimeout(t);t=setTimeout(function(){f.classList.remove('su')},vera?DURATA:2600);
+      if(vera){
+        inCorso=true;giro++;quale++;
+        im.src=sc.src+'#'+giro; /* l'indirizzo cambia a ogni tocco: così la scena riparte dall'inizio */
+        clearTimeout(tm);tm=setTimeout(function(){inCorso=false;im.src=ferma;},DURATA);
+      }else{
+        if(fermo)quale++;
+        b.classList.remove('salta');void b.offsetWidth;b.classList.add('salta');
+      }
+    });
+    b.addEventListener('animationend',function(){b.classList.remove('salta')});
+  }
+  nonna('nonna-img','nonna-btn','nonna-fumetto',[PANINO,BIRRA],true);
+  nonna('nonna2-img','nonna2-btn','nonna2-fumetto',[BIRRA,PANINO],false);
 })();
 </script>
 
@@ -921,37 +932,6 @@ var EVENTO={
   });
   function lascia(){if(!presa)return;presa=false;scena.classList.remove('presa');ultimoTocco=performance.now();}
   scena.addEventListener('pointerup',lascia);scena.addEventListener('pointercancel',lascia);
-})();
-</script>
-<script>
-/* P 19: la nonna delle birre sta ferma. Se la tocchi dice «Zitto e bevi!» e si beve una Onesta, poi torna ferma.
-   La scena si carica solo quando ci si avvicina alla sezione birre. La frase si cambia qui. */
-(function(){
-  var FRASE="Zitto e bevi!",DURATA=5950;
-  var im=document.getElementById('nonna2-img'),b=document.getElementById('nonna2-btn'),f=document.getElementById('nonna2-fumetto');
-  if(!im||!b||!f)return;
-  var fermo=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ferma=im.getAttribute('src'),anima=im.getAttribute('data-anima');
-  var pronta=false,inCorso=false,chiesta=false,t,tm,giro=0;
-  function carica(){if(chiesta||fermo)return;chiesta=true;var m=new Image();m.onload=function(){pronta=true};m.src=anima;}
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){carica();io.disconnect();}})},{rootMargin:'600px'});
-    io.observe(b);
-  }else{window.addEventListener('load',carica);}
-  b.addEventListener('click',function(){
-    carica();
-    f.textContent=FRASE;
-    f.classList.add('su');clearTimeout(t);t=setTimeout(function(){f.classList.remove('su')},fermo||!pronta?2600:DURATA);
-    if(!fermo&&pronta){
-      if(inCorso)return;
-      inCorso=true;giro++;
-      im.src=anima+'#'+giro;
-      clearTimeout(tm);tm=setTimeout(function(){inCorso=false;im.src=ferma;},DURATA);
-    }else{
-      b.classList.remove('salta');void b.offsetWidth;b.classList.add('salta');
-    }
-  });
-  b.addEventListener('animationend',function(){b.classList.remove('salta')});
 })();
 </script>
 </body>
