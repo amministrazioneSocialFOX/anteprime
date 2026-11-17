@@ -373,9 +373,16 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 .l3d-punti i.qui{background:var(--giallo)}
 @media (max-height:620px){.l3d-scena{height:44vh}.l3d-nome{font-size:28px}}
 /* P 18: nonna dell'apertura più grande, su telefono e su computer */
-.hero .nonna{width:37%;max-width:215px;left:0}
+/* il riquadro dell'animazione ha margine vuoto attorno alla nonna (serve al panino): per questo è largo e spostato fuori */
+.hero .nonna{width:52%;max-width:230px;left:-6%;bottom:-34px}
+.fumetto{left:66%;bottom:76%}
+/* si tocca solo la nonna, non il margine vuoto attorno: così non copre i tasti vicini */
+.hero .nonna,.nonna button{pointer-events:none}
+.nonna button{position:relative}
+.nonna button::after{content:"";position:absolute;left:16%;top:19%;width:65%;height:63%;pointer-events:auto;cursor:pointer}
 .nonna button:hover{animation:none}
-@media (min-width:860px){.hero .nonna{width:225px;max-width:none;left:-118px;bottom:-2%}}
+@media (min-width:860px){.hero .nonna{width:294px;max-width:none;left:-142px;bottom:-48px}.fumetto{left:62%;bottom:78%}}
+@media (max-width:859px){.fumetto{left:66%;bottom:76%}}
 </style>
 </head>
 <body>
@@ -403,7 +410,7 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
   </div>
   <div class="foto">
     <img class="piatto" src="img/hero-mani-burger.webp" alt="Quattro mani tengono i burger di Big Mama su fondo nero" width="1125" height="2000">
-    <div class="nonna"><button type="button" id="nonna-btn" aria-label="Tocca la nonna: ti dice una frase e si mangia un panino"><img id="nonna-img" src="img/nonna-loop-24-fermo.webp" data-mangia="img/nonna-mangia.webp" alt="" width="390" height="520"></button><span class="fumetto" id="nonna-fumetto" role="status"></span></div>
+    <div class="nonna"><button type="button" id="nonna-btn" aria-label="Tocca la nonna: ti dice una frase e si mangia un panino"><img id="nonna-img" src="img/nonna-ferma-g.webp" data-mangia="img/nonna-mangia-g.webp" alt="" width="560" height="747"></button><span class="fumetto" id="nonna-fumetto" role="status"></span></div>
     <div class="bollino" aria-hidden="true"><span>Phone<br>eats<br><b>last</b></span></div>
   </div>
 </div></section>
