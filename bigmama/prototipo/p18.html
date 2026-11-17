@@ -357,8 +357,8 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 .l3d-chiudi{position:absolute;top:10px;right:10px;z-index:2;width:44px;height:44px;border-radius:50%;border:3px solid var(--nero);background:var(--giallo);color:var(--nero);font:900 18px var(--testi);cursor:pointer}
 .l3d-scena{position:relative;height:min(52vh,430px);height:min(52svh,430px);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
 .l3d-scena.presa{cursor:grabbing}
-.l3d-scena::before{content:"";position:absolute;left:50%;top:50%;width:min(78%,300px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:var(--alone,var(--giallo));opacity:.2}
-.l3d-scena::after{content:"";position:absolute;left:50%;bottom:3%;width:38%;height:16px;border-radius:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);filter:blur(7px)}
+
+.l3d-scena::after{content:"";position:absolute;left:50%;bottom:3%;width:38%;height:16px;border-radius:50%;transform:translateX(-50%);background:rgba(0,0,0,.45);filter:blur(7px)}
 .l3d-scena canvas,.l3d-scena img{position:absolute;inset:0;width:100%;height:100%;z-index:1}
 .l3d-scena img{object-fit:contain;padding:14px 0}
 .l3d-nome{font-family:var(--titoli);font-weight:900;font-variation-settings:"SOFT" 100;font-size:34px;line-height:1;margin:6px 0 6px;color:var(--giallo);text-transform:uppercase}
@@ -384,6 +384,16 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 .nonna button:hover{animation:none}
 @media (min-width:860px){.hero .nonna{width:70%;max-width:none;left:0;bottom:0;transform:translate(-48%,13%) rotate(-8deg)}.fumetto{left:62%;bottom:78%}}
 @media (max-width:859px){.fumetto{left:66%;bottom:76%}}
+/* P 18: dietro la lattina, un palco in stile Big Mama */
+.l3d-palco{position:relative;overflow:hidden;border-radius:18px;background:var(--sf,var(--fucsia));border:3px solid var(--nero);transition:background .3s ease}
+.l3d-raggi{position:absolute;left:50%;top:50%;width:190%;aspect-ratio:1;margin:-95% 0 0 -95%;background:repeating-conic-gradient(var(--raggi,#E4509A) 0 9deg,transparent 9deg 18deg);animation:l3d-gira 70s linear infinite}
+.l3d-motivo{position:absolute;inset:0;background:url(img/pattern-bianco.svg) center/380px auto repeat;opacity:.13}
+.l3d-palco.chiaro .l3d-motivo{background-image:url(img/pattern-nero.svg);opacity:.10}
+.l3d-bollo{position:absolute;left:50%;top:50%;width:min(64%,255px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-52%);background:var(--bollo,#151515);border:4px solid var(--nero);box-shadow:7px 7px 0 var(--ombra,var(--giallo));transition:background .3s ease,box-shadow .3s ease}
+.l3d-scena{z-index:1}
+.l3d-nome{margin-top:14px}
+@keyframes l3d-gira{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.l3d-raggi{animation:none}}
 </style>
 </head>
 <body>
@@ -693,7 +703,7 @@ var EVENTO={
 <div class="l3d" id="l3d" role="dialog" aria-modal="true" aria-labelledby="l3d-nome">
   <div class="l3d-scheda">
     <button class="l3d-chiudi" type="button" aria-label="Chiudi">✕</button>
-    <div class="l3d-scena" id="l3d-scena"></div>
+    <div class="l3d-palco" id="l3d-palco"><div class="l3d-raggi" aria-hidden="true"></div><div class="l3d-motivo" aria-hidden="true"></div><div class="l3d-bollo" aria-hidden="true"></div><div class="l3d-scena" id="l3d-scena"></div></div>
     <h2 class="l3d-nome" id="l3d-nome"></h2>
     <p class="l3d-tipo" id="l3d-tipo"></p>
     <p class="l3d-aiuto" id="l3d-aiuto">Trascina per girarla</p>
@@ -712,10 +722,10 @@ var EVENTO={
    Dati (tipo e gradi) letti dalle etichette: si cambiano qui. */
 (function(){
   var BIRRE=[
-    {id:"onesta",   nome:"Onesta",   tipo:"Bionda artigianale · 4,5% vol. · 33 cl", alone:"#FFDD00"},
-    {id:"saggia",   nome:"Saggia",   tipo:"IPA artigianale · 6,5% vol. · 33 cl",    alone:"#D62A7E"},
-    {id:"severa",   nome:"Severa",   tipo:"Rossa artigianale · 7,0% vol. · 33 cl · senza glutine", alone:"#FFFFFF"},
-    {id:"premurosa",nome:"Premurosa",tipo:"Bianca artigianale · 5,1% vol. · 33 cl · senza glutine", alone:"#FFFFFF"}
+    {id:"onesta",   nome:"Onesta",   tipo:"Bionda artigianale · 4,5% vol. · 33 cl", sfondo:"#D62A7E", raggi:"#E4509A", bollo:"#151515", ombra:"#FFDD00", chiaro:false},
+    {id:"saggia",   nome:"Saggia",   tipo:"IPA artigianale · 6,5% vol. · 33 cl",    sfondo:"#FFDD00", raggi:"#FFEA61", bollo:"#151515", ombra:"#D62A7E", chiaro:true},
+    {id:"severa",   nome:"Severa",   tipo:"Rossa artigianale · 7,0% vol. · 33 cl · senza glutine", sfondo:"#FFFFFF", raggi:"#FFDD00", bollo:"#D62A7E", ombra:"#151515", chiaro:true},
+    {id:"premurosa",nome:"Premurosa",tipo:"Bianca artigianale · 5,1% vol. · 33 cl · senza glutine", sfondo:"#0B0B0B", raggi:"#232323", bollo:"#FFDD00", ombra:"#D62A7E", chiaro:false}
   ];
   var box=document.getElementById('l3d'),scena=document.getElementById('l3d-scena');
   var tasti=[].slice.call(document.querySelectorAll('button.lattina'));
@@ -857,7 +867,7 @@ var EVENTO={
     quale=(i+BIRRE.length)%BIRRE.length;var b=BIRRE[quale];
     document.getElementById('l3d-nome').textContent=b.nome;
     document.getElementById('l3d-tipo').textContent=b.tipo;
-    scena.style.setProperty('--alone',b.alone);
+    var pl=document.getElementById('l3d-palco');pl.style.setProperty('--sf',b.sfondo);pl.style.setProperty('--raggi',b.raggi);pl.style.setProperty('--bollo',b.bollo);pl.style.setProperty('--ombra',b.ombra);pl.classList.toggle('chiaro',b.chiaro);
     [].forEach.call(document.getElementById('l3d-punti').children,function(p,k){p.classList.toggle('qui',k===quale);});
     rotY=-.5;rotX=.3;velY=0;ultimoTocco=0;
     if(gl){etichetta(b);
