@@ -42,7 +42,8 @@ iframe{border:0;display:block;width:100%;height:100%;background:#fff}
   var W={tel:390,pc:1280};
   /* ?p=p5 apre una versione precisa (p5.html); senza = pagina.html (la definitiva). Giovanni 09/11 */
   var q=(location.search.match(/[?&]p=([a-z0-9-]+)/i)||[])[1];
-  document.getElementById('pg').src=q?(q+'.html'):'pagina.html';
+  /* 17/11: l'ora in fondo all'indirizzo obbliga il browser a prendere sempre l'ultima versione, non quella in memoria */
+  document.getElementById('pg').src=(q?(q+'.html'):'pagina.html')+'?v='+Date.now();
   var stage=document.getElementById('stage'),frame=document.getElementById('frame');
   var bt=document.getElementById('b-tel'),bp=document.getElementById('b-pc'),hint=document.getElementById('hint');
   var mode=(location.hash==='#computer')?'pc':(location.hash==='#telefono')?'tel':(window.innerWidth>=900?'pc':'tel');
