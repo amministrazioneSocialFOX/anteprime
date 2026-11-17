@@ -374,6 +374,7 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 @media (max-height:620px){.l3d-scena{height:44vh}.l3d-nome{font-size:28px}}
 /* P 18: nonna dell'apertura più grande, su telefono e su computer */
 .hero .nonna{width:37%;max-width:215px;left:0}
+.nonna button:hover{animation:none}
 @media (min-width:860px){.hero .nonna{width:225px;max-width:none;left:-118px;bottom:-2%}}
 </style>
 </head>
@@ -402,7 +403,7 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
   </div>
   <div class="foto">
     <img class="piatto" src="img/hero-mani-burger.webp" alt="Quattro mani tengono i burger di Big Mama su fondo nero" width="1125" height="2000">
-    <div class="nonna"><button type="button" id="nonna-btn" aria-label="Tocca la nonna: ti dice una frase e si mangia un panino"><img id="nonna-img" src="img/nonna-loop-24-fermo.webp" data-loop="img/nonna-loop-24.webp" data-mangia="img/nonna-mangia.webp" alt="" width="390" height="520"></button><span class="fumetto" id="nonna-fumetto" role="status"></span></div>
+    <div class="nonna"><button type="button" id="nonna-btn" aria-label="Tocca la nonna: ti dice una frase e si mangia un panino"><img id="nonna-img" src="img/nonna-loop-24-fermo.webp" data-mangia="img/nonna-mangia.webp" alt="" width="390" height="520"></button><span class="fumetto" id="nonna-fumetto" role="status"></span></div>
     <div class="bollino" aria-hidden="true"><span>Phone<br>eats<br><b>last</b></span></div>
   </div>
 </div></section>
@@ -652,32 +653,27 @@ var EVENTO={
 })();
 </script>
 <script>
-/* P 18: la nonna si muove sempre (loop di 10 s, 24 fotogrammi al secondo). Se la tocchi dice una frase e si mangia un panino in un boccone.
-   Le animazioni si caricano dopo il resto della pagina, per non rallentarla. Le frasi si cambiano qui. */
+/* P 18: la nonna sta ferma. Se la tocchi dice «Zitto e mangia!» e si mangia un panino in un boccone, poi torna ferma.
+   L'animazione si carica dopo il resto della pagina, per non rallentarla. La frase si cambia qui. */
 (function(){
-  var FRASI=["Zitto e mangia!","Fame?","Don't touch my crocchè!","Phone eats last.","Zitto e bevi!","«No, il dolce no»"];
+  var FRASE="Zitto e mangia!";
   var DURATA_MANGIA=5950;
   var im=document.getElementById('nonna-img'),b=document.getElementById('nonna-btn'),f=document.getElementById('nonna-fumetto');
   if(!im||!b||!f)return;
   var fermo=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var loop=im.getAttribute('data-loop'),mangia=im.getAttribute('data-mangia');
-  var loopPronto=false,mangiaPronto=false,staMangiando=false,i=0,t,tm,giro=0;
-  function carica(){
-    var l=new Image();
-    l.onload=function(){loopPronto=true;if(!staMangiando)im.src=loop;
-      var m=new Image();m.onload=function(){mangiaPronto=true};m.src=mangia;};
-    l.src=loop;
-  }
+  var ferma=im.getAttribute('src'),mangia=im.getAttribute('data-mangia');
+  var mangiaPronto=false,staMangiando=false,t,tm,giro=0;
+  function carica(){var m=new Image();m.onload=function(){mangiaPronto=true};m.src=mangia;}
   if(!fermo){if(document.readyState==='complete')carica();else window.addEventListener('load',carica);}
   b.addEventListener('click',function(){
-    f.textContent=FRASI[i%FRASI.length];i++;
-    f.classList.add('su');clearTimeout(t);t=setTimeout(function(){f.classList.remove('su')},3200);
+    f.textContent=FRASE;
+    f.classList.add('su');clearTimeout(t);t=setTimeout(function(){f.classList.remove('su')},fermo||!mangiaPronto?2600:DURATA_MANGIA);
     if(!fermo&&mangiaPronto){
       if(staMangiando)return;
       staMangiando=true;giro++;
       /* l'indirizzo cambia a ogni tocco: così l'animazione riparte sempre dall'inizio */
       im.src=mangia+'#'+giro;
-      clearTimeout(tm);tm=setTimeout(function(){staMangiando=false;im.src=loop+'#'+giro;},DURATA_MANGIA);
+      clearTimeout(tm);tm=setTimeout(function(){staMangiando=false;im.src=ferma;},DURATA_MANGIA);
     }else{
       b.classList.remove('salta');void b.offsetWidth;b.classList.add('salta');
     }
