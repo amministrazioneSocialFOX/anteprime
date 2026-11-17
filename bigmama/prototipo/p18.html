@@ -374,14 +374,15 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 @media (max-height:620px){.l3d-scena{height:44vh}.l3d-nome{font-size:28px}}
 /* P 18: nonna dell'apertura più grande, su telefono e su computer */
 /* il riquadro dell'animazione ha margine vuoto attorno alla nonna (serve al panino): per questo è largo e spostato fuori */
-.hero .nonna{width:52%;max-width:230px;left:-6%;bottom:-34px}
+/* misura in proporzione alla foto: la nonna è larga circa il 30% della foto sul telefono e il 44% sul computer */
+.hero .nonna{width:48%;max-width:none;left:0;bottom:0;transform:translate(-12%,14%) rotate(-8deg)}
 .fumetto{left:66%;bottom:76%}
 /* si tocca solo la nonna, non il margine vuoto attorno: così non copre i tasti vicini */
 .hero .nonna,.nonna button{pointer-events:none}
 .nonna button{position:relative}
 .nonna button::after{content:"";position:absolute;left:16%;top:19%;width:65%;height:63%;pointer-events:auto;cursor:pointer}
 .nonna button:hover{animation:none}
-@media (min-width:860px){.hero .nonna{width:294px;max-width:none;left:-142px;bottom:-48px}.fumetto{left:62%;bottom:78%}}
+@media (min-width:860px){.hero .nonna{width:70%;max-width:none;left:0;bottom:0;transform:translate(-48%,13%) rotate(-8deg)}.fumetto{left:62%;bottom:78%}}
 @media (max-width:859px){.fumetto{left:66%;bottom:76%}}
 </style>
 </head>
