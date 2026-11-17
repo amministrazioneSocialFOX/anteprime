@@ -405,21 +405,27 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 /* nonna della gift card: grande, al posto della carta ferma. La carta la tira fuori lei quando la tocchi */
 .gift .carte{position:relative}
 .gift .carte img.fronte[hidden]{display:none}
-.gift .carte{width:min(100%,330px);margin:0 0 6px}
-.gift .nonna-gift{position:relative;z-index:3;width:100%;margin:-13% 0 -12% -9%;transform:rotate(-5deg);filter:drop-shadow(5px 6px 0 var(--fucsia));pointer-events:none}
+.gift .carte{width:min(100%,300px);margin:26px 0 30px;background:var(--nero);border:3px solid var(--nero);border-radius:26px;box-shadow:8px 8px 0 var(--fucsia)}
+.gift .carte::before{content:"";position:absolute;inset:0;border-radius:23px;background:url(img/pattern-bianco.svg) center/340px auto repeat,repeating-conic-gradient(from 0deg at 50% 58%,#232323 0 10deg,transparent 10deg 20deg);opacity:.16}
+.gift .carte::after{content:"";position:absolute;left:50%;top:58%;width:64%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:var(--giallo);border:3px solid var(--nero)}
+/* i tre passi */
+.passi{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px;font-weight:700;font-size:18px;line-height:1.2}
+.passi li{display:flex;align-items:center;gap:12px}
+.passi b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--nero);color:var(--giallo);display:grid;place-items:center;font:900 17px/1 var(--titoli);box-shadow:3px 3px 0 var(--fucsia)}
+.gift .nonna-gift{position:relative;z-index:3;width:100%;margin:-15% 0 -14% 0;transform:rotate(-5deg);filter:drop-shadow(5px 6px 0 var(--fucsia));pointer-events:none}
 .gift .nonna-gift img{width:100%;height:auto;border:0;border-radius:0;box-shadow:none;transform:none}
 .gift .nonna-gift .fumetto{left:70%;bottom:70%}
 @media (max-width:859px){.gift .nonna-gift .fumetto{left:66%;bottom:72%;max-width:128px}}
 /* sul computer la sezione gift card sta tutta in una schermata: titolo sopra, poi la nonna a sinistra e testo + tasto accanto */
 @media (min-width:860px){
-  .gift .dueco > div:not(.video):not(.oro){display:grid;grid-template-columns:230px minmax(0,1fr);column-gap:26px;align-content:center}
+  .gift .dueco > div:not(.video):not(.oro){display:grid;grid-template-columns:236px minmax(0,1fr);column-gap:34px;align-content:center}
   .gift .dueco > div:not(.video):not(.oro) > .pills,.gift .dueco > div:not(.video):not(.oro) > h2{grid-column:1/-1}
   .gift .dueco > div:not(.video):not(.oro) > h2{margin-bottom:6px}
-  .gift .carte{grid-column:1;grid-row:3/5;width:230px;margin:30px 0 0}
-  .gift .dueco > div:not(.video):not(.oro) > p{grid-column:2;align-self:end;margin:0 0 14px;position:relative;top:30px}
-  .gift .dueco > div:not(.video):not(.oro) > .btns{grid-column:2;align-self:start;margin:0;position:relative;top:30px}
-  .gift .carte .nonna-gift .tocca{left:57%;top:19%;font-size:14px;padding:6px 12px 6px 9px}
-  .gift .nonna-gift .fumetto{left:50%;bottom:78%}
+  .gift .carte{grid-column:1;grid-row:3/5;width:236px;margin:34px 0 0}
+  .gift .dueco > div:not(.video):not(.oro) > .passi{grid-column:2;align-self:end;margin:0 0 18px;position:relative;top:22px;font-size:17px}
+  .gift .dueco > div:not(.video):not(.oro) > .btns{grid-column:2;align-self:start;margin:0;position:relative;top:22px}
+  .gift .carte .nonna-gift .tocca{left:60%;top:15%;font-size:14px;padding:6px 12px 6px 9px}
+  .gift .nonna-gift .fumetto{left:56%;bottom:84%}
 }
 /* «Toccami»: un'etichetta che saltella piano accanto alla nonna; sparisce al primo tocco */
 .tocca{position:absolute;left:54%;top:12%;display:inline-flex;align-items:center;gap:5px;padding:5px 11px 5px 8px;border-radius:999px;background:var(--fucsia);color:#fff;border:2.5px solid var(--nero);box-shadow:3px 3px 0 var(--nero);font:700 13px/1 var(--testi);white-space:nowrap;pointer-events:none;animation:tocca 1.5s ease-in-out infinite;transition:opacity .25s ease}
@@ -535,7 +541,7 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
       <img class="fronte" src="img/giftcard-fronte.webp" alt="" width="1200" height="777" loading="lazy" hidden>
       <div class="nonna nonna-gift"><button type="button" id="nonna3-btn" aria-label="Tocca la nonna: scarta un regalo e trova la gift card"><img id="nonna3-img" src="img/nonna-ferma-hd.webp" alt="" width="1120" height="1494" loading="lazy"></button><span class="fumetto" id="nonna3-fumetto" role="status"></span><span class="tocca" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 11V5a1.6 1.6 0 0 1 3.2 0v5.2l4.3.9a2.4 2.4 0 0 1 1.9 2.7l-.6 4a3 3 0 0 1-3 2.6h-3.2a3 3 0 0 1-2.3-1.1L6 15.2a1.5 1.5 0 0 1 2.2-2l.8.8"/></svg>Toccami</span></div>
     </div>
-    <p>Scegli tu l'importo e la ritiri al locale. Al resto pensa chi la riceve.</p>
+    <ol class="passi"><li><b>1</b>Scegli tu l'importo</li><li><b>2</b>La ritiri al locale</li><li><b>3</b>Al resto pensa chi la riceve</li></ol>
     <div class="btns"><a class="btn ne" href="https://wa.me/393314649083?text=Ciao%20Big%20Mama!%20Vorrei%20una%20gift%20card">Chiedi la gift card</a></div>
   </div>
   <!-- CROCCHE-ORO: nascosta dalla P 17 (17/11/2026). Per rimetterla togli «hidden». -->
