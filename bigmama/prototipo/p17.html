@@ -335,7 +335,7 @@ footer .avviso{margin-top:10px;font-size:12px;opacity:.75}
 
 /* ===== P 17 ===== */
 .oro[hidden]{display:none}
-.timbro img{height:88%;top:51%}
+.timbro img{height:83%}
 /* indirizzo e orari in chiusura */
 .dove{list-style:none;margin:24px 0 0;padding:6px 18px;max-width:440px;border:2px solid rgba(255,255,255,.2);border-radius:22px}
 .dove li{display:flex;gap:14px;align-items:flex-start;padding:13px 0}
@@ -502,7 +502,7 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 <section id="chi-siamo" class="chi su-nero" aria-labelledby="t-chi"><div class="wrap dueco entra">
   <div class="cornice">
     <img class="grande" src="img/burger-nero.webp" alt="Burger col pane nero e la bandierina Big Mama" width="1200" height="1500" loading="lazy">
-    <div class="timbro" aria-hidden="true"><img src="img/nonna2-tondo-b.webp" alt="" width="427" height="560" loading="lazy"></div>
+    <div class="timbro" aria-hidden="true"><img src="img/nonna2-tondo-c.webp" alt="" width="608" height="792" loading="lazy"></div>
   </div>
   <div>
     <h2 id="t-chi" class="t">Come la nonna. <span class="g">Solo più Big.</span></h2>
@@ -704,18 +704,21 @@ var EVENTO={
   var fermo=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var quale=0,aperto=false,daDove=null;
   var gl,canvas,prog,loc={},nIdx=0,tex={},raf=0;
-  var rotY=0,rotX=0.16,velY=0,presa=false,ultimoX=0,ultimoY=0,ultimoTocco=0,tPrima=0;
+  var rotY=0,rotX=0.3,velY=0,presa=false,ultimoX=0,ultimoY=0,ultimoTocco=0,tPrima=0;
 
   /* --- forma della lattina: profilo (raggio, altezza) fatto girare attorno all'asse --- */
   var H=2.16; /* metà altezza dell'etichetta: l'etichetta è 2400x1653, quindi altezza = circonferenza / 1,452 */
   function geometria(){
-    var N=72,pos=[],nor=[],uv=[],mat=[],idx=[];
+    var N=96,pos=[],nor=[],uv=[],mat=[],idx=[];
     /* ogni pezzo: lista di punti [r,y], materiale (0 etichetta, 1 alluminio) */
+    /* materiali: 0 etichetta (sopra e sotto continua il colore del bordo dell'etichetta, come nelle lattine stampate), 1 alluminio, 2 coperchio */
     var pezzi=[
-      {m:1,p:[[0,-H-.17],[.50,-H-.20],[.66,-H-.31],[.74,-H-.33],[.82,-H-.27],[.95,-H-.10],[1,-H]]},
+      {m:1,p:[[0,-H-.13],[.30,-H-.15],[.52,-H-.22],[.63,-H-.32],[.69,-H-.375],[.75,-H-.38]]},
+      {m:0,p:[[.75,-H-.38],[.82,-H-.33],[.90,-H-.22],[.96,-H-.10],[.99,-H-.03],[1,-H]]},
       {m:0,p:[[1,-H],[1,H]]},
-      {m:1,p:[[1,H],[.985,H+.07],[.93,H+.22],[.86,H+.36],[.835,H+.43],[.845,H+.50],[.83,H+.545],[.79,H+.55],[.765,H+.50],[.75,H+.42]]},
-      {m:1,p:[[.75,H+.42],[0,H+.42]]}
+      {m:0,p:[[1,H],[.995,H+.05],[.975,H+.15],[.94,H+.27],[.90,H+.38],[.872,H+.455]]},
+      {m:1,p:[[.872,H+.455],[.862,H+.49],[.872,H+.525],[.884,H+.555],[.878,H+.585],[.852,H+.60],[.822,H+.592],[.806,H+.56],[.798,H+.50],[.79,H+.47]]},
+      {m:2,p:[[.79,H+.47],[.74,H+.452],[.70,H+.455],[0,H+.455]]}
     ];
     pezzi.forEach(function(pz){
       var p=pz.p,base=pos.length/3,k,i;
@@ -727,7 +730,7 @@ var EVENTO={
           var t=i/N,th=(t-.5)*2*Math.PI,sn=Math.sin(th),cs=Math.cos(th);
           pos.push(p[k][0]*sn,p[k][1],p[k][0]*cs);
           nor.push(nr*sn,ny,nr*cs);
-          uv.push(t,pz.m===0?(H-p[k][1])/(2*H):0);
+          uv.push(t,(H-p[k][1])/(2*H));
           mat.push(pz.m);
         }
       }
@@ -739,18 +742,28 @@ var EVENTO={
     return {pos:new Float32Array(pos),nor:new Float32Array(nor),uv:new Float32Array(uv),mat:new Float32Array(mat),idx:new Uint16Array(idx)};
   }
 
-  var VS='attribute vec3 aP;attribute vec3 aN;attribute vec2 aU;attribute float aM;uniform mat4 uPV;uniform mat4 uM;varying vec3 vN;varying vec2 vU;varying float vM;varying vec3 vW;'+
-    'void main(){vec4 w=uM*vec4(aP,1.);vW=w.xyz;vN=mat3(uM)*aN;vU=aU;vM=aM;gl_Position=uPV*w;}';
-  var FS='precision mediump float;uniform sampler2D uT;uniform float uPronta;uniform vec3 uCam;varying vec3 vN;varying vec2 vU;varying float vM;varying vec3 vW;'+
-    'float fascia(float x,float c,float w){return smoothstep(w,0.,abs(x-c));}'+
-    'void main(){vec3 N=normalize(vN);vec3 V=normalize(uCam-vW);vec3 L=normalize(vec3(-.55,.75,.85));'+
-    'float d=max(dot(N,L),0.);float s=pow(max(dot(N,normalize(L+V)),0.),38.);'+
-    /* riflessi verticali finti, come una lattina fotografata in studio */
-    'float st=fascia(N.x,-.62,.16)*.55+fascia(N.x,.74,.10)*.4;float bordo=pow(1.-max(dot(N,V),0.),2.2);'+
-    'vec3 c;if(vM<.5){vec3 t=mix(vec3(.16),texture2D(uT,vU).rgb,uPronta);'+
-      'c=t*(.60+.46*d)+vec3(1.)*(st*.16+s*.22)-bordo*.30;}'+
-    'else{float m=.42+.34*d+fascia(N.x,-.62,.2)*.34+fascia(N.x,.74,.14)*.26+fascia(N.y,.9,.5)*.22;'+
-      'c=vec3(.80,.82,.85)*m+vec3(1.)*s*.5-bordo*.22;}'+
+  var VS='attribute vec3 aP;attribute vec3 aN;attribute vec2 aU;attribute float aM;uniform mat4 uPV;uniform mat4 uM;varying vec3 vN;varying vec2 vU;varying float vM;varying vec3 vW;varying vec3 vO;'+
+    'void main(){vec4 w=uM*vec4(aP,1.);vW=w.xyz;vO=aP;vN=mat3(uM)*aN;vU=aU;vM=aM;gl_Position=uPV*w;}';
+  /* luce da studio fotografico: due pannelli morbidi ai lati, soffitto chiaro, pavimento scuro. I colori dell'etichetta restano quelli di stampa. */
+  var FS='precision highp float;uniform sampler2D uT;uniform float uPronta;uniform vec3 uCam;varying vec3 vN;varying vec2 vU;varying float vM;varying vec3 vW;varying vec3 vO;'+
+    'float studio(vec3 r){float a=atan(r.x,r.z);float su=smoothstep(-.45,.15,r.y);'+
+      'float p1=smoothstep(.62,.18,abs(a+1.0))*su;float p2=smoothstep(.34,.08,abs(a-1.2))*su;float p3=smoothstep(.5,.0,abs(a-3.0))*su*.5;'+
+      'return .07+smoothstep(-.2,1.,r.y)*.42+p1*1.05+p2*.75+p3;}'+
+    'void main(){vec3 N=normalize(vN);vec3 V=normalize(uCam-vW);vec3 R=reflect(-V,N);float nv=max(dot(N,V),0.);float fr=pow(1.-nv,5.);'+
+    'vec3 L=normalize(vec3(-.45,.6,.66));float hl=.5+.5*dot(N,L);float e=studio(R);vec3 c;'+
+    'if(vM<.5){vec3 t=mix(vec3(.2),texture2D(uT,vec2(vU.x,clamp(vU.y,.004,.996))).rgb,uPronta);'+
+      /* inchiostro: colore pieno davanti, un po\' più scuro ai lati; sopra, il lucido della vernice */
+      'c=t*(.74+.31*hl)*mix(1.,.80,pow(1.-nv,2.5));c+=vec3(1.)*e*(.075+.5*fr);c+=vec3(1.)*pow(max(dot(N,normalize(L+V)),0.),60.)*.10;}'+
+    'else if(vM<1.5){c=vec3(.83,.85,.88)*(.16+e*.92);c+=vec3(1.)*fr*.25;}'+
+    'else{float r=length(vO.xz);vec2 q=vO.xz;'+
+      /* coperchio: alluminio spazzolato, scanalatura, linguetta e apertura disegnate */
+      'float sp=.5+.5*sin(r*150.);float base=.60+.16*hl+sp*.03;'+
+      'base-=smoothstep(.035,.0,abs(r-.60))*.16;'+
+      'float ap=length((q-vec2(0.,.30))/vec2(.21,.16));base-=smoothstep(.10,.0,abs(ap-1.))*.20;'+
+      'float li=length((q-vec2(0.,-.10))/vec2(.17,.27));base=mix(base,.90,smoothstep(1.04,.96,li));'+
+      'float fo=length((q-vec2(0.,-.24))/vec2(.085,.075));base=mix(base,.34,smoothstep(1.06,.94,fo));'+
+      'base-=smoothstep(.03,.0,abs(li-1.))*.14;'+
+      'c=vec3(.84,.86,.89)*base;}'+
     'gl_FragColor=vec4(clamp(c,0.,1.),1.);}';
 
   function avviaGL(){
@@ -802,15 +815,15 @@ var EVENTO={
     var dt=Math.min(.05,(ora-(tPrima||ora))/1000);tPrima=ora;
     if(!presa){
       if(Math.abs(velY)>.02){rotY+=velY*dt;velY*=Math.pow(.05,dt);}
-      else if(!fermo&&ora-ultimoTocco>1800){rotY+=.55*dt;rotX+=(.16-rotX)*Math.min(1,dt*2);}
+      else if(!fermo&&ora-ultimoTocco>1800){rotY+=.55*dt;rotX+=(.3-rotX)*Math.min(1,dt*2);}
     }
     var asp=misura(),fov=28*Math.PI/180,f=1/Math.tan(fov/2),vic=1,lon=60;
     /* distanza: la lattina (alta circa 5,3) deve stare tutta nel riquadro, anche se è stretto */
-    var dist=Math.max(3.05/Math.tan(fov/2),1.35/(Math.tan(fov/2)*asp))+1.1;
+    var dist=Math.max(3.1/Math.tan(fov/2),1.4/(Math.tan(fov/2)*asp))+1.1;
     var P=[f/asp,0,0,0, 0,f,0,0, 0,0,(lon+vic)/(vic-lon),-1, 0,0,-dist*(lon+vic)/(vic-lon)+2*lon*vic/(vic-lon),dist];
     /* P include già lo spostamento della camera lungo z (vista = traslazione di -dist) */
     var cy=Math.cos(rotY),sy=Math.sin(rotY),cx=Math.cos(rotX),sx=Math.sin(rotX);
-    var M=[cy,sx*sy,-cx*sy,0, 0,cx,sx,0, sy,-sx*cy,cx*cy,0, 0,-.06,0,1];
+    var M=[cy,sx*sy,-cx*sy,0, 0,cx,sx,0, sy,-sx*cy,cx*cy,0, 0,-.11,0,1];
     var t=tex[BIRRE[quale].id];
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
     gl.uniformMatrix4fv(loc.uPV,false,new Float32Array(P));
@@ -827,7 +840,7 @@ var EVENTO={
     document.getElementById('l3d-tipo').textContent=b.tipo;
     scena.style.setProperty('--alone',b.alone);
     [].forEach.call(document.getElementById('l3d-punti').children,function(p,k){p.classList.toggle('qui',k===quale);});
-    rotY=-.5;rotX=.16;velY=0;ultimoTocco=0;
+    rotY=-.5;rotX=.3;velY=0;ultimoTocco=0;
     if(gl){etichetta(b);
       /* prepara anche le altre, così il cambio è immediato */
       setTimeout(function(){if(aperto)BIRRE.forEach(etichetta);},600);
