@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Anteprima SocialFOX</title>
 <style>
-/* Viewer SocialFOX: mostra pagina.html come telefono o come computer, da qualsiasi schermo. */
+/* Viewer SocialFOX: mostra pagina.html come telefono, tablet o computer, da qualsiasi schermo. */
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:#151515;font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;display:flex;flex-direction:column}
@@ -20,6 +20,7 @@ body{background:#151515;font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,
 .stage{flex:1;overflow:hidden;display:flex;justify-content:center;align-items:flex-start;padding:16px}
 .frame{background:#fff;overflow:hidden;transform-origin:top left;box-shadow:0 10px 40px rgba(0,0,0,.5)}
 .frame.phone{border-radius:28px;border:10px solid #000}
+.frame.tab{border-radius:22px;border:12px solid #000}
 .frame.pc{border-radius:8px;border:1px solid #444}
 iframe{border:0;display:block;width:100%;height:100%;background:#fff}
 .hint{font-size:12px;color:#aaa}
@@ -30,7 +31,9 @@ iframe{border:0;display:block;width:100%;height:100%;background:#fff}
   <span class="brand">Prototipo <b>SocialFOX</b> · <span id="nome">anteprima</span></span>
   <div class="switch" role="group" aria-label="Scegli la vista">
     <button id="b-tel" type="button" aria-pressed="false">📱 Telefono</button>
+    <button id="b-tab" type="button" aria-pressed="false">📲 Tablet</button>
     <button id="b-pc" type="button" aria-pressed="false">💻 Computer</button>
+    <button id="b-gira" type="button" hidden>🔄 Gira</button>
   </div>
   <span class="hint" id="hint"></span>
 </div>
@@ -39,28 +42,32 @@ iframe{border:0;display:block;width:100%;height:100%;background:#fff}
 </div>
 <script>
 (function(){
-  var W={tel:390,pc:1280};
+  var W={tel:390,tab:820,pc:1280};
+  /* 20/11: vista Tablet (820 in piedi, 1180 sdraiato) con il tasto Gira */
+  var TABH={v:1180,o:820},orient='v';
   /* ?p=p5 apre una versione precisa (p5.html); senza = pagina.html (la definitiva). Giovanni 09/11 */
   var q=(location.search.match(/[?&]p=([a-z0-9-]+)/i)||[])[1];
   /* 17/11: l'ora in fondo all'indirizzo obbliga il browser a prendere sempre l'ultima versione, non quella in memoria */
   document.getElementById('pg').src=(q?(q+'.html'):'pagina.html')+'?v='+Date.now();
   var stage=document.getElementById('stage'),frame=document.getElementById('frame');
-  var bt=document.getElementById('b-tel'),bp=document.getElementById('b-pc'),hint=document.getElementById('hint');
-  var mode=(location.hash==='#computer')?'pc':(location.hash==='#telefono')?'tel':(window.innerWidth>=900?'pc':'tel');
+  var bt=document.getElementById('b-tel'),bp=document.getElementById('b-pc'),bb=document.getElementById('b-tab'),bg=document.getElementById('b-gira'),hint=document.getElementById('hint');
+  var mode=(location.hash==='#computer')?'pc':(location.hash==='#telefono')?'tel':(location.hash==='#tablet')?'tab':(window.innerWidth>=900?'pc':'tel');
   function fit(){
     var pad=32,availW=stage.clientWidth-pad,availH=stage.clientHeight-pad;
-    var w=W[mode],extra=(mode==='tel')?20:2;
+    var w=(mode==='tab'&&orient==='o')?1180:W[mode],extra=(mode==='tel')?20:(mode==='tab')?24:2;
     var s=Math.min(1,availW/(w+extra));
-    frame.className='frame '+(mode==='tel'?'phone':'pc');
-    frame.style.width=w+'px';
-    frame.style.height=Math.max(300,Math.floor(availH/s))+'px';
+    var th=(mode==='tab')?TABH[orient]+24:0;
+    if(mode==='tab')s=Math.min(s,availH/th);
+    frame.className='frame '+(mode==='tel'?'phone':mode==='tab'?'tab':'pc');
+    frame.style.width=(mode==='tab'?w+24:w)+'px'; /* tablet: 820 veri dentro la cornice */
+    frame.style.height=(mode==='tab'?th:Math.max(300,Math.floor(availH/s)))+'px';
     frame.style.transform='scale('+s+')';
     frame.style.marginRight=(-(w+extra)*(1-s))+'px';
     hint.textContent=s<1?('vista rimpicciolita al '+Math.round(s*100)+'%'):'';
-    bt.setAttribute('aria-pressed',mode==='tel');bp.setAttribute('aria-pressed',mode==='pc');
+    bt.setAttribute('aria-pressed',mode==='tel');bb.setAttribute('aria-pressed',mode==='tab');bg.hidden=(mode!=='tab');bp.setAttribute('aria-pressed',mode==='pc');
   }
-  function set(m){mode=m;try{history.replaceState(null,'',m==='pc'?'#computer':'#telefono');}catch(e){}fit();}
-  bt.onclick=function(){set('tel')};bp.onclick=function(){set('pc')};
+  function set(m){mode=m;try{history.replaceState(null,'',m==='pc'?'#computer':m==='tab'?'#tablet':'#telefono');}catch(e){}fit();}
+  bt.onclick=function(){set('tel')};bb.onclick=function(){set('tab')};bg.onclick=function(){orient=(orient==='v')?'o':'v';fit();};bp.onclick=function(){set('pc')};
   window.addEventListener('resize',fit);
   document.getElementById('pg').addEventListener('load',function(){
     try{var t=this.contentDocument.title;if(t)document.getElementById('nome').textContent=t.replace(/^Wireframe · /,'');}catch(e){}
