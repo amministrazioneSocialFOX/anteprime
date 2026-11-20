@@ -505,10 +505,12 @@ button.lattina:active img{transform:translateY(-4px) rotate(-3deg)}
 }
 /* P 24: sul telefono la foto dell'apertura è larga quanto lo schermo, senza i due vuoti ai lati. Se lo schermo è basso si accorcia un po' sopra e sotto (al massimo del 18%), così i quattro panini restano tutti dentro */
 @media (max-width:699px){
+  .hero{padding-top:14px}
   .hero .foto{width:100%}
-  .hero .foto img.piatto{width:100%;min-width:0;aspect-ratio:auto;object-fit:cover;object-position:center 55%;
-    height:clamp(calc((100vw - 32px)*1.46),calc(100vh - 240px),calc((100vw - 32px)*1.7778));
-    height:clamp(calc((100vw - 32px)*1.46),calc(100svh - 240px),calc((100vw - 32px)*1.7778))}
+  /* la foto finisce appena sopra la barra Ordina/Prenota: nel primo schermo c'è solo lei, intera nella sua cornice, e il titolo arriva scorrendo. Il taglio è quasi tutto in basso, così il primo panino e il bollo «Phone eats last» restano interi */
+  .hero .foto img.piatto{width:100%;min-width:0;aspect-ratio:auto;object-fit:cover;object-position:center 30%;
+    height:clamp(calc((100vw - 32px)*1.46),calc(100vh - 215px),calc((100vw - 32px)*1.7778));
+    height:clamp(calc((100vw - 32px)*1.46),calc(100svh - 215px),calc((100vw - 32px)*1.7778))}
 }
 /* P 24: con la foto larga la nonna usciva dal bordo sinistro dello schermo quando beve o mangia: spostata verso destra, resta tutta dentro */
 @media (max-width:599px){.hero .nonna{transform:translate(-5%,12%) rotate(-8deg)}}
